@@ -3,10 +3,12 @@ import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import MenuItem from "../components/MenuItem";
 
 const Wrapper = styled.div`
 	@media (max-width: 767px) {
-		background-color: #f8f9fa;
+		//background-color: #f8f9fa;
+		background-color: pink;
 		height: 100vh;
 	}
 `;
@@ -17,6 +19,12 @@ const Tab = styled.nav`
 	ul {
 		display: flex;
 	}
+`;
+
+const Menu = styled.main`
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
 `;
 
 const Home: NextPage = () => {
@@ -33,6 +41,21 @@ const Home: NextPage = () => {
 		"추가6",
 		"추가7",
 		"추가8",
+	];
+
+	const tempMenu = [
+		{ image: "image", title: "menu1", price: 1000 },
+		{ image: "image", title: "menu2", price: 1000 },
+		{ image: "image", title: "menu3", price: 1000 },
+		{ image: "image", title: "menu4", price: 1000 },
+		{ image: "image", title: "menu5", price: 1000 },
+		{ image: "image", title: "menu6", price: 1000 },
+		{ image: "image", title: "menu7", price: 1000 },
+		{ image: "image", title: "menu8", price: 1000 },
+		{ image: "image", title: "menu9", price: 1000 },
+		{ image: "image", title: "menu10", price: 1000 },
+		{ image: "image", title: "menu11", price: 1000 },
+		{ image: "image", title: "menu12", price: 1000 },
 	];
 
 	const [category, setCategory] = useState<string[]>([]);
@@ -65,8 +88,6 @@ const Home: NextPage = () => {
 
 	const RenderTap = () => {
 		const result = [];
-		console.log(leftidx);
-		console.log(rightidx);
 		for (let i = leftidx; i <= rightidx; i++) {
 			result.push(
 				<li>
@@ -75,6 +96,14 @@ const Home: NextPage = () => {
 					</button>
 				</li>,
 			);
+		}
+		return result;
+	};
+
+	const RenderMenu = () => {
+		const result = [];
+		for (let i = 0; i < tempMenu.length; i++) {
+			result.push(<MenuItem {...tempMenu[i]} />);
 		}
 		return result;
 	};
@@ -90,6 +119,7 @@ const Home: NextPage = () => {
 					<FontAwesomeIcon icon={faAngleRight} />
 				</button>
 			</Tab>
+			<Menu>{RenderMenu()}</Menu>
 		</Wrapper>
 	);
 };
