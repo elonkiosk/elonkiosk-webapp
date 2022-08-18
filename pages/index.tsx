@@ -10,6 +10,7 @@ import {
 	faCircleArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import MenuItem from "../components/MenuItem";
+import Link from "next/link";
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -109,6 +110,14 @@ const Bottom = styled.div`
 			align-items: center;
 		}
 	}
+`;
+
+const PaymentBascket = styled.a`
+	background-color: #bdc3c7;
+	border: 1px solid #34495e;
+	text-align: center;
+	display: grid;
+	place-items: center;
 `;
 
 const Home: NextPage = () => {
@@ -292,12 +301,16 @@ const Home: NextPage = () => {
 						<span>{totalprice}</span>
 					</div>
 				</div>
-				<button>
-					<span>장바구니</span>
-				</button>
-				<button>
-					<span>결제</span>
-				</button>
+				<Link href={`/basket`}>
+					<PaymentBascket>
+						<span>장바구니</span>
+					</PaymentBascket>
+				</Link>
+				<Link href={`/payment`}>
+					<PaymentBascket>
+						<span>결제</span>
+					</PaymentBascket>
+				</Link>
 			</Bottom>
 		</Wrapper>
 	);
