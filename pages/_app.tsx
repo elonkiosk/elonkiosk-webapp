@@ -3,6 +3,7 @@ import { Global } from "@emotion/react";
 import { global } from "../styles/global";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import "../styles/variables.scss";
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
