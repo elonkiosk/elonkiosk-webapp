@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const global = css`
 	html,
@@ -125,4 +126,15 @@ export const global = css`
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
+`;
+
+export const Button = styled.button`
+	background-color: var(--color-pink);
+	border-radius: 9px;
+	border: var(--border-color);
+	color: #fff;
+	span {
+		font-size: 14px;
+	}
+	padding: 7px;
 `;

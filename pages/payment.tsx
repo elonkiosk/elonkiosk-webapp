@@ -19,19 +19,20 @@ import {
 	faMobileScreen,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Wrapper = styled.div`
-	width: 100%;
-	height: 100%;
-	position: absolute;
+const PaymentWrapper = styled.div`
 	background-color: #f8f9fa;
+	flex: 1;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 `;
 
 const MainItem = styled.main`
-	position: absolute;
 	padding: 20px;
 	width: 100%;
 	box-sizing: border-box;
-	border-bottom: 1px solid #dadce0;
+	border-bottom: var(--border-color);
+	border-top: var(--border-color);
 	background-color: #fff;
 `;
 
@@ -40,9 +41,6 @@ const PaymentMethod = styled.div``;
 const PaymentMethodRadio = styled(Radio)`
 	display: flex;
 	margin: 25px 0 10px 0;
-	::after {
-		color: blue;
-	}
 `;
 
 const ElonPay = styled.div`
@@ -86,7 +84,7 @@ const NormalPayItem = styled.button<{ isActived?: boolean }>`
 	background-color: transparent;
 	height: 50px;
 	border: ${props =>
-		props.isActived ? "2px solid #f78fb3" : "1px solid #9a9a9a"};
+		props.isActived ? "2px solid #f78fb3" : "1px solid #dadce0"};
 
 	svg {
 		font-size: 15px;
@@ -109,7 +107,7 @@ const OrderButton = styled.div`
 	width: 100%;
 	display: grid;
 	place-items: center;
-	height: 8%;
+	height: 60px;
 	border-top: 1px solid #dadce0;
 	button {
 		width: 90%;
@@ -120,6 +118,9 @@ const OrderButton = styled.div`
 		font-size: 16px;
 		color: #fff;
 		font-weight: bold;
+		&:hover {
+			cursor: pointer;
+		}
 	}
 `;
 
@@ -129,22 +130,25 @@ const MainHeader = styled.span`
 	font-weight: bold;
 `;
 
-const SubHeader = styled.span``;
+const SubHeader = styled.span`
+	font-size: 16px;
+	letter-spacing: -1;
+`;
 
-const Home: NextPage = () => {
+const PaymentContent = styled.div`
+	display: flex;
+	justify-content: space-between;
+	margin: 20px 0;
+`;
+
+const Payment: NextPage = () => {
 	const radio = useRadioState();
 	const [normalpaymenttype, setNormalPaymentType] = useState("");
 	console.log(radio);
 
 	return (
 		<Layout>
-			<Wrapper>
-				<MainItem>
-					<OrderHistory>
-						{/* 주문내역 확인 및 추가 삭제 가능하게 컴포넌트로 */}
-					</OrderHistory>
-				</MainItem>
-				{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+			<PaymentWrapper>
 				<MainItem>
 					<PaymentMethod>
 						<MainHeader>결제수단</MainHeader>
@@ -227,12 +231,25 @@ const Home: NextPage = () => {
 					</PaymentMethod>
 				</MainItem>
 				{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+				<MainItem style={{ marginTop: "10px" }}>
+					<MainHeader>결제내용</MainHeader>
+					<PaymentContent>
+						<SubHeader>주문수량</SubHeader>
+						<span>3</span>
+					</PaymentContent>
+					<PaymentContent>
+						<SubHeader>결제금액</SubHeader>
+						<span>30,000</span>
+					</PaymentContent>
+				</MainItem>
+
+				{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
 				<OrderButton>
 					<button>10,000원 결제하기</button>
 				</OrderButton>
-			</Wrapper>
+			</PaymentWrapper>
 		</Layout>
 	);
 };
 
-export default Home;
+export default Payment;
