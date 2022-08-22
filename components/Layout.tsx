@@ -11,8 +11,9 @@ const Wrapper = styled.div`
 `;
 
 const GoBack = styled.div`
-	padding: 12px 0;
-	background-color: brown;
+	padding: 14px 0;
+	background-color: var(--color-pink);
+
 	button {
 		padding: 0;
 		margin-left: 15px;
@@ -24,8 +25,9 @@ const GoBack = styled.div`
 		}
 
 		svg {
-			font-size: 22px;
+			font-size: 24px;
 			padding: 0 5px;
+			color: #fff;
 		}
 	}
 `;

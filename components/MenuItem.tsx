@@ -6,7 +6,7 @@ const Wrapper = styled.div`
 	width: 100%;
 	height: 100px;
 	// height == width 만들기.. 정사각형으로
-	border: 1px solid black;
+	border: var(--border-color);
 	justify-content: space-around;
 	align-items: center;
 	img {

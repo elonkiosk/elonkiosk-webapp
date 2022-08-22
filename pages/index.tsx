@@ -16,8 +16,7 @@ import Link from "next/link";
 
 const Wrapper = styled.div`
 	@media (max-width: 767px) {
-		//background-color: #f8f9fa;
-		background-color: pink;
+		background-color: var(--color-darkwhite);
 		height: 100vh;
 		display: grid;
 		grid-template-rows: 1.5fr 11fr 1fr 2fr;
@@ -27,7 +26,6 @@ const Wrapper = styled.div`
 const Tab = styled.nav`
 	display: grid;
 	grid-template-columns: 1fr 10fr 1fr;
-	background-color: #fff;
 	margin-top: 12px;
 
 	ul {
@@ -58,7 +56,7 @@ const TabItem = styled.button<ITabItem>`
 	border-bottom: ${props =>
 		props.index == props.tabnum ? "none" : "1px solid black"};
 	background-color: ${props =>
-		props.index == props.tabnum ? "#fff" : "#f39c12"};
+		props.index == props.tabnum ? "#f8f9fa" : "#f78fb3"};
 	&:hover {
 		cursor: pointer;
 	}
@@ -77,20 +75,37 @@ const Menu = styled.main`
 	gap: 10px;
 	padding: 10px;
 	border: 0;
-	border-bottom: 1px solid black;
 `;
 
 const Slide = styled.div`
 	display: flex;
 	justify-content: space-between;
+	margin-bottom: 20px;
 
 	ul {
 		display: flex;
+		align-items: center;
 		gap: 10px;
 	}
 
 	#ispage {
-		color: red;
+		color: var(--color-pink);
+	}
+
+	#isntpage {
+		color: #ffb8b8;
+	}
+
+	button {
+		background-color: transparent;
+		border: 0;
+		svg {
+			font-size: 30px;
+			color: var(--color-pink);
+		}
+		&:hover {
+			cursor: pointer;
+		}
 	}
 `;
 
@@ -104,6 +119,12 @@ const Bottom = styled.div`
 		padding-right: 10px;
 		grid-template-rows: 1fr 1fr;
 		div {
+			span {
+				:first-of-type {
+					font-weight: bold;
+				}
+			}
+			padding: 5px;
 			display: flex;
 			justify-content: space-between;
 			text-align: center;
@@ -113,11 +134,15 @@ const Bottom = styled.div`
 `;
 
 const PaymentBascket = styled.a`
-	background-color: #bdc3c7;
-	border: 1px solid #34495e;
+	background-color: var(--color-pink);
+	border: 0;
 	text-align: center;
 	display: grid;
 	place-items: center;
+	margin: 5px;
+	font-size: 18px;
+	color: #fff;
+	font-weight: bold;
 `;
 
 const Home: NextPage = () => {
@@ -257,7 +282,7 @@ const Home: NextPage = () => {
 			} else {
 				result.push(
 					<li>
-						<span>
+						<span id="isntpage">
 							<FontAwesomeIcon icon={faCircle} />
 						</span>
 					</li>,

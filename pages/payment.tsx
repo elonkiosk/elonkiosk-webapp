@@ -20,7 +20,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const PaymentWrapper = styled.div`
-	background-color: #f8f9fa;
+	background-color: var(--color-darkwhite);
 	flex: 1;
 	width: 100%;
 	display: flex;
@@ -60,7 +60,7 @@ const ElonPayCard = styled.div`
 `;
 
 const ElonPayCardMain = styled.div`
-	background-color: #f8f9fa;
+	background-color: var(--color-darkwhite);
 	width: 100%;
 	height: 95%;
 	border-bottom-right-radius: 8px;
@@ -108,7 +108,7 @@ const OrderButton = styled.div`
 	display: grid;
 	place-items: center;
 	height: 60px;
-	border-top: 1px solid #dadce0;
+	border-top: var(--border-color);
 	button {
 		width: 90%;
 		height: 90%;

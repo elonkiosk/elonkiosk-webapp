@@ -38,7 +38,7 @@ const OrderButton = styled.div`
 	display: grid;
 	place-items: center;
 	height: 8%;
-	border-top: 1px solid #dadce0;
+	border-top: var(--border-color);
 	button {
 		width: 90%;
 		height: 90%;
