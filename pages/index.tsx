@@ -26,21 +26,24 @@ const Wrapper = styled.div`
 const Tab = styled.nav`
 	display: grid;
 	grid-template-columns: 1fr 10fr 1fr;
-	margin-top: 12px;
+	padding-top: 12px;
+	background-color: var(--color-pink);
 
 	ul {
 		display: grid;
+		gap: 5px;
 		grid-template-columns: repeat(5, 1fr);
 	}
 
 	#Tab-arrow {
 		font-size: 20px;
+		font-weight: bold;
 		background-color: transparent;
 		border: 0;
-		border-bottom: 1px solid black;
 		&:hover {
 			cursor: pointer;
 		}
+		color: #fff;
 	}
 `;
 
@@ -52,11 +55,12 @@ interface ITabItem {
 const TabItem = styled.button<ITabItem>`
 	width: 100%;
 	height: 100%;
-	border: 1px solid black;
-	border-bottom: ${props =>
-		props.index == props.tabnum ? "none" : "1px solid black"};
+	border: none;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom: none;
 	background-color: ${props =>
-		props.index == props.tabnum ? "#f8f9fa" : "#f78fb3"};
+		props.index == props.tabnum ? "#eee" : "#fd79a8"};
 	&:hover {
 		cursor: pointer;
 	}
@@ -73,8 +77,8 @@ const Menu = styled.main`
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(3, 1fr);
 	gap: 10px;
-	padding: 10px;
-	border: 0;
+	padding: 20px;
+	border-top: none;
 `;
 
 const Slide = styled.div`
@@ -118,23 +122,27 @@ const Bottom = styled.div`
 		display: grid;
 		padding-right: 10px;
 		grid-template-rows: 1fr 1fr;
+		background-color: var(--color-white);
+		margin: 5px;
+		border-radius: 8px;
 		div {
 			span {
 				:first-of-type {
 					font-weight: bold;
 				}
 			}
-			padding: 5px;
 			display: flex;
 			justify-content: space-between;
 			text-align: center;
 			align-items: center;
+			padding: 8px;
 		}
 	}
 `;
 
 const PaymentBascket = styled.a`
 	background-color: var(--color-pink);
+	border-radius: 8px;
 	border: 0;
 	text-align: center;
 	display: grid;
@@ -161,47 +169,52 @@ const Home: NextPage = () => {
 		"추가8",
 	];
 
-	const tempMenu = [
-		{ image: "image", title: "menu1", price: 1000 },
-		{ image: "image", title: "menu2", price: 1000 },
-		{ image: "image", title: "menu3", price: 1000 },
-		{ image: "image", title: "menu4", price: 1000 },
-		{ image: "image", title: "menu5", price: 1000 },
-		{ image: "image", title: "menu6", price: 1000 },
-		{ image: "image", title: "menu7", price: 1000 },
-		{ image: "image", title: "menu8", price: 1000 },
-		{ image: "image", title: "menu9", price: 1000 },
-		{ image: "image", title: "menu10", price: 1000 },
-		{ image: "image", title: "menu11", price: 1000 },
-		{ image: "image", title: "menu12", price: 1000 },
-		{ image: "image", title: "menu13", price: 1000 },
-		{ image: "image", title: "menu14", price: 1000 },
-		{ image: "image", title: "menu15", price: 1000 },
-		{ image: "image", title: "menu16", price: 1000 },
-		{ image: "image", title: "menu17", price: 1000 },
-		{ image: "image", title: "menu18", price: 1000 },
-		{ image: "image", title: "menu19", price: 1000 },
-		{ image: "image", title: "menu20", price: 1000 },
-		{ image: "image", title: "menu21", price: 1000 },
-		{ image: "image", title: "menu22", price: 1000 },
-		{ image: "image", title: "menu23", price: 1000 },
-		{ image: "image", title: "menu24", price: 1000 },
+	const menuList = [
+		{
+			food_number: 1,
+			food_category: "커피",
+			store_id: 1004,
+			food_name: "아메리카노",
+			price: 3500,
+			food_pic: "이미지 주소",
+			food_explanation: "시원한 아메리카노",
+		},
+		{
+			food_number: 2,
+			food_category: "라떼",
+			store_id: 1004,
+			food_name: "카페라떼",
+			price: 4000,
+			food_pic: "이미지 주소",
+			food_explanation: "따뜻한 카페라떼",
+		},
+		{
+			food_number: 3,
+			food_category: "티",
+			store_id: 1004,
+			food_name: "녹차",
+			price: 3000,
+			food_pic: "이미지 주소",
+			food_explanation: "따듯한 녹차",
+		},
 	];
 
-	const [category, setCategory] = useState<string[]>([]);
-	const [pivot, setPivot] = useState(0);
 	const [leftidx, setLeftIdx] = useState(0);
 	const [rightidx, setRightIdx] = useState(4);
-	const [pagenum, setPageNum] = useState(0);
+	const [pagenum, setPageNum] = useState<number>(0);
 	const [totalprice, setTotalPrice] = useState(0);
 	const [totalnumber, setTotalNumber] = useState(0);
 	const [tabnum, setTabNum] = useState(0);
+	const [category, setCategory] = useState(new Set());
 
-	// useEffect(() => {
-	// 	tempcategory.forEach(item => {
-	// 		if (category.length < 6) setCategory([...category, item]);
-	// 	});
-	// }, []);
+	useEffect(() => {
+		const categorySet = new Set();
+		menuList.forEach(item => {
+			categorySet.add(item.food_category);
+		});
+		setRightIdx(categorySet.size);
+		setCategory(categorySet);
+	}, []);
 
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isButtonClick
 	const TabPlus = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -224,7 +237,7 @@ const Home: NextPage = () => {
 	const SlidePlus = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		//setPivot(prev => prev + 1);
-		if (Math.floor(tempMenu.length / 9) > pagenum) {
+		if (Math.floor(menuList.length / 9) > pagenum) {
 			setPageNum(prev => prev + 1);
 		}
 	};
@@ -239,37 +252,58 @@ const Home: NextPage = () => {
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isRender
 	const RenderTap = () => {
 		const result = [];
-		for (let i = leftidx; i <= rightidx; i++) {
+		console.log(Array.from(category));
+		let index = 0;
+		for (const item of Array.from(category)) {
+			const tempIndex = index;
 			result.push(
 				<li>
 					<TabItem
 						onClick={event => {
 							event.preventDefault();
-							setTabNum(i);
+							setTabNum(tempIndex);
 						}}
-						index={i}
+						index={tempIndex}
 						tabnum={tabnum}
 					>
-						<span>{tempcategory[i]}</span>
+						<span>{typeof item === "string" ? item : ""}</span>
 					</TabItem>
 				</li>,
 			);
+			index = index + 1;
 		}
 		return result;
 	};
 
 	const RenderMenu = () => {
 		const result = [];
-		for (let i = pagenum * 9; i < pagenum * 9 + 9; i++) {
-			result.push(<MenuItem {...tempMenu[i]} />);
+		if (pagenum == 0) {
+			for (let i = 0; i < menuList.length; i++) {
+				result.push(
+					<MenuItem
+						image={menuList[i].food_pic}
+						title={menuList[i].food_name}
+						price={menuList[i].food_number}
+					/>,
+				);
+			}
+		} else {
+			for (let i = pagenum * 9; i < pagenum * 9 + 9; i++) {
+				result.push(
+					<MenuItem
+						image={menuList[i].food_pic}
+						title={menuList[i].food_name}
+						price={menuList[i].food_number}
+					/>,
+				);
+			}
 		}
 		return result;
 	};
 
 	const RenderSlide = (pagenum: number) => {
 		const result = [];
-		const slidenum = Math.floor(tempMenu.length / 9);
-		console.log(pagenum);
+		const slidenum = Math.floor(menuList.length / 9);
 		for (let i = 0; i < slidenum + 1; i++) {
 			if (pagenum == i) {
 				result.push(
