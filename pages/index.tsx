@@ -15,7 +15,7 @@ import Link from "next/link";
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const Wrapper = styled.div`
-	@media (max-width: 767px) {
+	@media (max-width: 768px) {
 		background-color: var(--color-darkwhite);
 		height: 100vh;
 		display: grid;
