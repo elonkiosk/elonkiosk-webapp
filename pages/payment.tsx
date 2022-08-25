@@ -245,7 +245,9 @@ const Payment: NextPage = () => {
 
 				{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
 				<OrderButton>
-					<button>10,500원 결제하기</button>
+					<button onClick={() => alert("주문이 완료 되었습니다!")}>
+						10,500원 결제하기
+					</button>
 				</OrderButton>
 			</PaymentWrapper>
 		</Layout>
