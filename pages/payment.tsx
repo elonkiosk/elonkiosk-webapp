@@ -84,16 +84,16 @@ const NormalPayItem = styled.button<{ isActived?: boolean }>`
 	background-color: transparent;
 	height: 50px;
 	border: ${props =>
-		props.isActived ? "2px solid #f78fb3" : "1px solid #dadce0"};
+		props.isActived ? "2px solid #2980b9" : "1px solid #dadce0"};
 
 	svg {
 		font-size: 15px;
 		margin-right: 5px;
-		color: ${props => (props.isActived ? "#f78fb3" : "black")};
+		color: ${props => (props.isActived ? "#2980b9" : "black")};
 	}
 
 	span {
-		color: ${props => (props.isActived ? "#f78fb3" : "black")};
+		color: ${props => (props.isActived ? "#2980b9" : "black")};
 		font-weight: ${props => (props.isActived ? "bold" : "100")};
 	}
 `;
