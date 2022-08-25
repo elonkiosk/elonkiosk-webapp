@@ -239,13 +239,13 @@ const Payment: NextPage = () => {
 					</PaymentContent>
 					<PaymentContent>
 						<SubHeader>결제금액</SubHeader>
-						<span>30,000</span>
+						<span>10,500원</span>
 					</PaymentContent>
 				</MainItem>
 
 				{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
 				<OrderButton>
-					<button>10,000원 결제하기</button>
+					<button>10,500원 결제하기</button>
 				</OrderButton>
 			</PaymentWrapper>
 		</Layout>
