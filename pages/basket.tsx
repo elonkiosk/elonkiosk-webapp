@@ -57,14 +57,24 @@ const Basket: NextPage = () => {
 			<Wrapper>
 				<MainItem>
 					<MainHeader>장바구니</MainHeader>
-					<BasketItem />
-					<BasketItem />
-					<BasketItem />
-					<BasketItem />
-					<BasketItem />
-					<BasketItem />
-					<BasketItem />
-					<BasketItem />
+					<BasketItem
+						image="/static/buger1.png"
+						title="치즈렐라와퍼"
+						price={3500}
+						count={1}
+					/>
+					<BasketItem
+						image="/static/buger2.png"
+						title="치즈렐라치킨버거"
+						price={4000}
+						count={1}
+					/>
+					<BasketItem
+						image="/static/buger3.png"
+						title="몬스터X"
+						price={3000}
+						count={1}
+					/>
 				</MainItem>
 				<OrderButton>
 					<button>결제하러가기</button>

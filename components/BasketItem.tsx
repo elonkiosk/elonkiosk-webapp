@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
-import buger from "../static/buger.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../styles/global";
@@ -41,6 +40,9 @@ const MenuInfo = styled.div`
 		flex-direction: column;
 		margin-left: 20px;
 		span {
+			:first-of-type {
+				font-weight: bold;
+			}
 			:last-of-type {
 				font-size: 14px;
 				opacity: 0.6;
@@ -50,7 +52,14 @@ const MenuInfo = styled.div`
 	}
 `;
 
-function BasketItem() {
+interface IBasketItem {
+	image: string;
+	title: string;
+	price: number;
+	count: number;
+}
+
+function BasketItem({ image, title, price, count }: IBasketItem) {
 	return (
 		<BasketItemWrapper>
 			<BasketItemTop>
@@ -60,20 +69,20 @@ function BasketItem() {
 			</BasketItemTop>
 			<BasketItemMain>
 				<MenuInfo>
-					<Image src={buger} width="50px" height="50px" objectFit="contain" />
+					<Image src={image} width={80} height={80} objectFit="contain" />
 					<div>
-						<span>불고기버거</span>
+						<span>{title}</span>
 						<span>기본옵션</span>
 					</div>
 				</MenuInfo>
-				<span>30,000</span>
+				<span>{`${price}원`}</span>
 			</BasketItemMain>
 			<BasketItemBottom>
 				<div>
 					<Button>
 						<FontAwesomeIcon icon={faMinus} />
 					</Button>
-					<span style={{ margin: "0 10px" }}>2</span>
+					<span style={{ margin: "0 10px" }}>{count}</span>
 					<Button>
 						<FontAwesomeIcon icon={faPlus} />
 					</Button>
