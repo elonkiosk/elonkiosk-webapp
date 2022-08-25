@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Layout from "../components/Layout";
 import styled from "@emotion/styled";
 import BasketItem from "../components/BasketItem";
+import Link from "next/link";
 
 const Wrapper = styled.div`
 	background-color: #f8f9fa;
@@ -39,15 +40,18 @@ const OrderButton = styled.div`
 	place-items: center;
 	height: 8%;
 	border-top: var(--border-color);
-	button {
+
+	a {
+		text-decoration: none;
+		font-weight: bold;
+		color: #fff;
+		font-size: 16px;
 		width: 90%;
 		height: 90%;
-		border: 0;
 		background-color: var(--color-pink);
-		border-radius: 5px;
-		font-size: 16px;
-		color: #fff;
-		font-weight: bold;
+		border-radius: 8px;
+		display: grid;
+		place-items: center;
 	}
 `;
 
@@ -77,7 +81,9 @@ const Basket: NextPage = () => {
 					/>
 				</MainItem>
 				<OrderButton>
-					<button>결제하러가기</button>
+					<Link href={`/payment`}>
+						<a>결제하러가기</a>
+					</Link>
 				</OrderButton>
 			</Wrapper>
 		</Layout>
