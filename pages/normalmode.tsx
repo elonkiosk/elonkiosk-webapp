@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MenuItem from "../components/MenuItem";
 import Link from "next/link";
+import Image from "next/image";
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -78,7 +79,7 @@ const Menu = styled.main`
 	grid-template-rows: repeat(3, 1fr);
 	gap: 10px;
 	padding: 20px;
-	border-top: none;
+	border: none;
 `;
 
 const Slide = styled.div`
@@ -97,7 +98,7 @@ const Slide = styled.div`
 	}
 
 	#isntpage {
-		color: #ffb8b8;
+		color: #74b9ff;
 	}
 
 	button {
@@ -156,25 +157,91 @@ const PaymentBascket = styled.a`
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const normalmode: NextPage = () => {
-	const tempcategory = [
-		"이벤트",
-		"사이드",
-		"음료",
-		"세트",
-		"추가1",
-		"추가2",
-		"추가3",
-		"추가4",
-		"추가5",
-		"추가6",
-		"추가7",
-		"추가8",
-	];
-
 	const menuList = [
 		{
 			food_number: 1,
-			food_category: "커피",
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "치즈렐라와퍼",
+			price: 3500,
+			food_pic: "/static/buger1.png",
+			food_explanation: "시원한 아메리카노",
+		},
+		{
+			food_number: 2,
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "치즈렐라치킨버거",
+			price: 4000,
+			food_pic: "/static/buger2.png",
+			food_explanation: "따뜻한 카페라떼",
+		},
+		{
+			food_number: 3,
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "몬스터X",
+			price: 3000,
+			food_pic: "/static/buger3.png",
+			food_explanation: "따듯한 녹차",
+		},
+		{
+			food_number: 1,
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "통새우X",
+			price: 3500,
+			food_pic: "/static/buger4.png",
+			food_explanation: "시원한 아메리카노",
+		},
+		{
+			food_number: 2,
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "콰트로치즈X",
+			price: 4000,
+			food_pic: "/static/buger5.png",
+			food_explanation: "따뜻한 카페라떼",
+		},
+		{
+			food_number: 3,
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "기네스콰트로치즈와퍼",
+			price: 3000,
+			food_pic: "/static/buger6.png",
+			food_explanation: "따듯한 녹차",
+		},
+		{
+			food_number: 1,
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "기네스머쉬룸와퍼",
+			price: 3500,
+			food_pic: "/static/buger7.png",
+			food_explanation: "시원한 아메리카노",
+		},
+		{
+			food_number: 2,
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "기네스와퍼",
+			price: 4000,
+			food_pic: "/static/buger8.png",
+			food_explanation: "따뜻한 카페라떼",
+		},
+		{
+			food_number: 3,
+			food_category: "버거류",
+			store_id: 1004,
+			food_name: "몬스터와퍼",
+			price: 3000,
+			food_pic: "/static/buger9.png",
+			food_explanation: "따듯한 녹차",
+		},
+		{
+			food_number: 1,
+			food_category: "사이드",
 			store_id: 1004,
 			food_name: "아메리카노",
 			price: 3500,
@@ -183,7 +250,7 @@ const normalmode: NextPage = () => {
 		},
 		{
 			food_number: 2,
-			food_category: "라떼",
+			food_category: "음료",
 			store_id: 1004,
 			food_name: "카페라떼",
 			price: 4000,
@@ -192,7 +259,7 @@ const normalmode: NextPage = () => {
 		},
 		{
 			food_number: 3,
-			food_category: "티",
+			food_category: "세트",
 			store_id: 1004,
 			food_name: "녹차",
 			price: 3000,
@@ -222,7 +289,7 @@ const normalmode: NextPage = () => {
 	const TabPlus = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		//setPivot(prev => prev + 1);
-		if (rightidx < tempcategory.length - 1) {
+		if (rightidx < category.size - 1) {
 			setLeftIdx(prev => prev + 1);
 			setRightIdx(prev => prev + 1);
 		}
@@ -280,12 +347,16 @@ const normalmode: NextPage = () => {
 	const RenderMenu = () => {
 		const result = [];
 		if (pagenum == 0) {
-			for (let i = 0; i < menuList.length; i++) {
+			for (let i = 0; i < 9; i++) {
 				result.push(
 					<MenuItem
 						image={menuList[i].food_pic}
 						title={menuList[i].food_name}
-						price={menuList[i].food_number}
+						price={menuList[i].price}
+						SelectFunc={price => {
+							setTotalNumber(prev => prev + 1);
+							setTotalPrice(prev => prev + price);
+						}}
 					/>,
 				);
 			}
@@ -296,6 +367,10 @@ const normalmode: NextPage = () => {
 						image={menuList[i].food_pic}
 						title={menuList[i].food_name}
 						price={menuList[i].food_number}
+						SelectFunc={price => {
+							setTotalNumber(prev => prev + 1);
+							setTotalPrice(prev => prev + price);
+						}}
 					/>,
 				);
 			}

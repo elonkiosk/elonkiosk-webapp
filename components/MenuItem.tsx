@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
+import Image from "next/image";
 
 const Wrapper = styled.button`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 100px;
 	// height == width 만들기.. 정사각형으로
 	background-color: #fff;
 	justify-content: space-around;
@@ -12,10 +12,6 @@ const Wrapper = styled.button`
 	align-items: center;
 	border: 0;
 	border-radius: 8px;
-	img {
-		width: 100%;
-		object-fit: scale-down;
-	}
 
 	div {
 		display: flex;
@@ -33,18 +29,27 @@ const Wrapper = styled.button`
 			color: #ff3838;
 		}
 	}
+
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 interface IMenuItem {
 	image: string;
 	title: string;
 	price: number;
+	SelectFunc: (price: number) => void;
 }
 
-function MenuItem({ image, title, price }: IMenuItem) {
+function MenuItem({ image, title, price, SelectFunc }: IMenuItem) {
 	return (
-		<Wrapper>
-			<img src="" alt="img" />
+		<Wrapper
+			onClick={() => {
+				SelectFunc(price);
+			}}
+		>
+			<Image src={image} width={70} height={70} quality={100} />
 			<div>
 				<span>{title}</span>
 				<span>{`${price}원`}</span>
