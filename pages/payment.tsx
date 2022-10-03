@@ -152,7 +152,7 @@ const Payment: NextPage = () => {
 				<MainItem>
 					<PaymentMethod>
 						<MainHeader>결제수단</MainHeader>
-						<div>
+						{/* <div>
 							<PaymentMethodRadio
 								name="ElonPay"
 								value="ElonPay"
@@ -227,7 +227,7 @@ const Payment: NextPage = () => {
 									</NormalPayItem>
 								</NormalPay>
 							) : null}
-						</div>
+						</div> */}
 					</PaymentMethod>
 				</MainItem>
 				{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
