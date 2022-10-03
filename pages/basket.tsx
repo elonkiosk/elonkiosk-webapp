@@ -48,7 +48,7 @@ const OrderButton = styled.div`
 		font-size: 16px;
 		width: 90%;
 		height: 90%;
-		background-color: var(--color-pink);
+		background-color: var(--color-blue);
 		border-radius: 8px;
 		display: grid;
 		place-items: center;

@@ -28,7 +28,7 @@ const Tab = styled.nav`
 	display: grid;
 	grid-template-columns: 1fr 10fr 1fr;
 	padding-top: 12px;
-	background-color: var(--color-pink);
+	background-color: var(--color-blue);
 
 	ul {
 		display: grid;
@@ -94,7 +94,7 @@ const Slide = styled.div`
 	}
 
 	#ispage {
-		color: var(--color-pink);
+		color: var(--color-blue);
 	}
 
 	#isntpage {
@@ -106,7 +106,7 @@ const Slide = styled.div`
 		border: 0;
 		svg {
 			font-size: 30px;
-			color: var(--color-pink);
+			color: var(--color-blue);
 		}
 		&:hover {
 			cursor: pointer;
@@ -142,7 +142,7 @@ const Bottom = styled.div`
 `;
 
 const PaymentBascket = styled.a`
-	background-color: var(--color-pink);
+	background-color: var(--color-blue);
 	border-radius: 8px;
 	border: 0;
 	text-align: center;

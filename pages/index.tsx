@@ -1,14 +1,14 @@
 import type { NextPage } from "next";
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
-import { FontAwesomeMode } from "@fortawesome/react-fontawesome";
-import {
-	faAngleRight,
-	faAngleLeft,
-	faCircle,
-	faCircleArrowLeft,
-	faCircleArrowRight,
-} from "@fortawesome/free-solid-svg-Modes";
+//import { FontAwesomeMode } from "@fortawesome/react-fontawesome";
+// import {
+// 	faAngleRight,
+// 	faAngleLeft,
+// 	faCircle,
+// 	faCircleArrowLeft,
+// 	faCircleArrowRight,
+// } from "@fortawesome/free-solid-svg-Modes";
 import MenuItem from "../components/MenuItem";
 import Link from "next/link";
 import { useRouter } from "next/router";

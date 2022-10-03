@@ -52,7 +52,7 @@ const ElonPay = styled.div`
 
 const ElonPayCard = styled.div`
 	height: 150px;
-	background-color: var(--color-pink);
+	background-color: var(--color-blue);
 	width: 60%;
 	border-radius: 8px;
 	display: flex;
@@ -113,7 +113,7 @@ const OrderButton = styled.div`
 		width: 90%;
 		height: 90%;
 		border: 0;
-		background-color: var(--color-pink);
+		background-color: var(--color-blue);
 		border-radius: 5px;
 		font-size: 16px;
 		color: #fff;
