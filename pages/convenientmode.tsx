@@ -5,9 +5,15 @@ import Loading from "../components/Loading";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import { IGets } from "../api/menuget";
+import ConvenientTitle from "../components/ConvenientTitle";
+
+const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
 
 function ConvenientMode() {
-	const mock = new AxiosMockAdapter(axios);
+	const mock = new AxiosMockAdapter(axios, { delayResponse: 1000 });
 	const [data, setData] = useState<IGets>();
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<unknown>();
@@ -63,7 +69,21 @@ function ConvenientMode() {
 		RestGet();
 	}, []);
 
-	return <>{loading ? <Loading /> : <span>data</span>}</>;
+	return (
+		<>
+			{loading ? (
+				<Loading />
+			) : (
+				<Wrapper>
+					<ConvenientTitle>
+						<span style={{ fontSize: "30px" }}>
+							{"드시고 가시나요?\n포장해 가시나요?"}
+						</span>
+					</ConvenientTitle>
+				</Wrapper>
+			)}
+		</>
+	);
 }
 
 export default ConvenientMode;
