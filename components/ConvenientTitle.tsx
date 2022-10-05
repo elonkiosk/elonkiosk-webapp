@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { ReactNode } from "react";
 
 const Wrapper = styled.div`
 	padding: 15px;
 	width: 100%;
+	flex-grow: 1;
 	display: grid;
 	place-items: center;
 	background-color: aqua;

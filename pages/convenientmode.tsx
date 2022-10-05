@@ -6,10 +6,15 @@ import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import { IGets } from "../api/menuget";
 import ConvenientTitle from "../components/ConvenientTitle";
+import ConvenientButton from "../components/ConvenientButton";
 
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+`;
+
+const Menu = styled.div`
+	display: flex;
 `;
 
 function ConvenientMode() {
@@ -80,6 +85,10 @@ function ConvenientMode() {
 							{"드시고 가시나요?\n포장해 가시나요?"}
 						</span>
 					</ConvenientTitle>
+					<Menu>
+						<ConvenientButton text="포장하기" color="green" />
+						<ConvenientButton text="먹고가기" color="green" />
+					</Menu>
 				</Wrapper>
 			)}
 		</>
