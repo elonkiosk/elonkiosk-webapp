@@ -7,14 +7,13 @@ import AxiosMockAdapter from "axios-mock-adapter";
 import { IGets } from "../api/menuget";
 import ConvenientTitle from "../components/ConvenientTitle";
 import ConvenientButton from "../components/ConvenientButton";
-
-const Wrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
+import ConvenientLayout from "../components/ConvenientLayout";
 
 const Menu = styled.div`
-	display: flex;
+	background-color: red;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	//gap: 5px;
 `;
 
 function ConvenientMode() {
@@ -79,7 +78,7 @@ function ConvenientMode() {
 			{loading ? (
 				<Loading />
 			) : (
-				<Wrapper>
+				<ConvenientLayout>
 					<ConvenientTitle>
 						<span style={{ fontSize: "30px" }}>
 							{"드시고 가시나요?\n포장해 가시나요?"}
@@ -89,7 +88,7 @@ function ConvenientMode() {
 						<ConvenientButton text="포장하기" color="green" />
 						<ConvenientButton text="먹고가기" color="green" />
 					</Menu>
-				</Wrapper>
+				</ConvenientLayout>
 			)}
 		</>
 	);

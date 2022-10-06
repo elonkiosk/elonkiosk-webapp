@@ -1,15 +1,14 @@
 import styled from "@emotion/styled";
 
 const Button = styled.button<{ btncolor: string }>`
-	width: 100%;
 	border: 0;
 	border-radius: 8px;
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 	display: grid;
 	place-items: center;
 	background: transparent;
-	margin: 5px;
-	padding: 30px 0;
+	margin: 10px;
+	//padding: 30px 0;
 	background-color: ${props => {
 		if (props.btncolor == "red") return "var(--color-red)";
 		else if (props.btncolor == "yello") return "var(--color-yello)";

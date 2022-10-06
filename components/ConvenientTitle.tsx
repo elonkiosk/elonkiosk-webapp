@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 
 const Wrapper = styled.div`
 	padding: 15px;
-	width: 100%;
-	flex-grow: 1;
+	//width: 100%;
+	flex: 1;
 	display: grid;
 	place-items: center;
 	background-color: aqua;

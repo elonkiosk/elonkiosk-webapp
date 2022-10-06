@@ -126,6 +126,14 @@ export const global = css`
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	a {
+		text-decoration: none;
+	}
 `;
 
 export const Button = styled.button`
