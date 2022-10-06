@@ -69,6 +69,18 @@ function ConvenientMode() {
 		return [200, gets];
 	});
 
+	const funcIsPickup = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		window.sessionStorage.setItem("ispickup", "yes");
+		event.preventDefault();
+	};
+
+	const funcIsNotPickup = (
+		event: React.MouseEvent<HTMLButtonElement>,
+	): void => {
+		window.sessionStorage.setItem("ispickup", "yes");
+		event.preventDefault();
+	};
+
 	useEffect(() => {
 		RestGet();
 	}, []);
@@ -85,8 +97,16 @@ function ConvenientMode() {
 						</span>
 					</ConvenientTitle>
 					<Menu>
-						<ConvenientButton text="포장하기" color="green" />
-						<ConvenientButton text="먹고가기" color="green" />
+						<ConvenientButton
+							text="포장하기"
+							color="green"
+							oper={funcIsPickup}
+						/>
+						<ConvenientButton
+							text="먹고가기"
+							color="green"
+							oper={funcIsNotPickup}
+						/>
 					</Menu>
 				</ConvenientLayout>
 			)}

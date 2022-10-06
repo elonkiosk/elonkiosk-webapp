@@ -8,7 +8,9 @@ const Button = styled.button<{ btncolor: string }>`
 	place-items: center;
 	background: transparent;
 	margin: 10px;
-	//padding: 30px 0;
+	padding: 22px 0;
+	cursor: pointer;
+
 	background-color: ${props => {
 		if (props.btncolor == "red") return "var(--color-red)";
 		else if (props.btncolor == "yello") return "var(--color-yello)";
@@ -20,17 +22,19 @@ const Button = styled.button<{ btncolor: string }>`
 	span {
 		font-size: 24px;
 		font-weight: 600;
+		color: var(--color-white);
 	}
 `;
 
 interface IConvenientButton {
 	text: string;
 	color: string;
+	oper: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-function ConvenientButton({ text, color }: IConvenientButton) {
+function ConvenientButton({ text, color, oper }: IConvenientButton) {
 	return (
-		<Button btncolor={color}>
+		<Button btncolor={color} onClick={oper}>
 			<span>{text}</span>
 		</Button>
 	);
