@@ -3,7 +3,6 @@ import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { IGets } from "../api/menuget";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
 import Loading from "../components/Loading";
@@ -65,72 +64,30 @@ const Footer = styled.div`
 `;
 
 function convenientmain() {
-	const [data, setData] = useState<IGets>();
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<unknown>();
 	const router = useRouter();
 	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
-
-	const RestGet = async () => {
-		try {
-			setError(null);
-			const response = await axios.get("/gets");
-			setData(response.data.content);
-			setLoading(false);
-		} catch (e) {
-			setError(e);
-		}
-	};
-
-	mock.onGet("/gets").reply(() => {
-		const gets = {
-			error: null,
-			content: [
-				{
-					food_number: 1,
-					food_category: "커피",
-					store_id: 1004,
-					food_name: "아메리카노",
-					price: 3500,
-					food_pic: "이미지 주소",
-					food_explanation: "시원한 아메리카노",
-				},
-				{
-					food_number: 2,
-					food_category: "라떼",
-					store_id: 1004,
-					food_name: "카페라떼",
-					price: 4000,
-					food_pic: "이미지 주소",
-					food_explanation: "따뜻한 카페라떼",
-				},
-				{
-					food_number: 3,
-					food_category: "티",
-					store_id: 1004,
-					food_name: "녹차",
-					price: 3000,
-					food_pic: "이미지 주소",
-					food_explanation: "따듯한 녹차",
-				},
-			],
-		};
-		return [200, gets];
-	});
 
 	const goHome = (event: React.MouseEvent<HTMLButtonElement>): void => {
 		router.push("/");
 		event.preventDefault();
 	};
 
-	const goPrev = (event: React.MouseEvent<HTMLButtonElement>): void => {
-		router.back();
+	const goMenu = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.push("/convenientmenu");
 		event.preventDefault();
 	};
 
-	useEffect(() => {
-		RestGet();
-	}, []);
+	const goBasket = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.push("/covenientbasket");
+		event.preventDefault();
+	};
+
+	const goPayment = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.push("/convenientpayment");
+		event.preventDefault();
+	};
 
 	return (
 		<>
@@ -146,17 +103,17 @@ function convenientmain() {
 						<ConvenientButton
 							text="음료 주문하기"
 							color="green"
-							oper={goHome}
+							oper={goMenu}
 						></ConvenientButton>
 						<ConvenientButton
 							text="선택한 음료S추가/삭제"
-							color="green"
-							oper={goPrev}
+							color="red"
+							oper={goBasket}
 						></ConvenientButton>
 						<ConvenientButton
 							text="선택한 음료S결제하기"
-							color="green"
-							oper={goPrev}
+							color="red"
+							oper={goPayment}
 						></ConvenientButton>
 					</Main>
 					<Footer>

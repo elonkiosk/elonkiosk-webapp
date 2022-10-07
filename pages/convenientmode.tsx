@@ -3,8 +3,6 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Loading from "../components/Loading";
-
-import { IGets } from "../api/menuget";
 import ConvenientTitle from "../components/ConvenientTitle";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
