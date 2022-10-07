@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
 
 const Button = styled.button<{ btncolor: string }>`
 	border: 0;
@@ -8,7 +9,7 @@ const Button = styled.button<{ btncolor: string }>`
 	place-items: center;
 	background: transparent;
 	margin: 10px;
-	padding: 22px 0;
+	padding: 22px 5px;
 	cursor: pointer;
 
 	background-color: ${props => {
@@ -35,7 +36,9 @@ interface IConvenientButton {
 function ConvenientButton({ text, color, oper }: IConvenientButton) {
 	return (
 		<Button btncolor={color} onClick={oper}>
-			<span>{text}</span>
+			{text.split("S").map((item, key) => (
+				<span key={key}>{item}</span>
+			))}
 		</Button>
 	);
 }
