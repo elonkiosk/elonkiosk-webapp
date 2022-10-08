@@ -39,12 +39,12 @@ function ConvenientMode() {
 				</span>
 			</ConvenientTitle>
 			<Menu>
-				<ConvenientButton text="포장하기" color="green" oper={funcIsPickup} />
-				<ConvenientButton
-					text="먹고가기"
-					color="green"
-					oper={funcIsNotPickup}
-				/>
+				<ConvenientButton color="green" oper={funcIsPickup}>
+					<span>포장하기</span>
+				</ConvenientButton>
+				<ConvenientButton color="green" oper={funcIsNotPickup}>
+					<span>먹고가기</span>
+				</ConvenientButton>
 			</Menu>
 		</ConvenientLayout>
 	);

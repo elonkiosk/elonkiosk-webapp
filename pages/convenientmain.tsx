@@ -9,9 +9,12 @@ import Loading from "../components/Loading";
 
 const Header = styled.div`
 	background-color: orange;
-	padding: 10px 0 150px 0;
+	padding: 10px 0 10px 0;
+	height: 100px;
 	display: flex;
-	justify-content: flex-end;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-around;
 
 	span {
 		font-size: 26px;
@@ -91,40 +94,36 @@ function convenientmain() {
 
 	return (
 		<>
-			{loading ? (
-				<Loading />
-			) : (
-				<ConvenientLayout>
-					<Header>
+			<ConvenientLayout>
+				<Header>
+					<div>
 						<span>담은 물건 수</span>
 						<span>3</span>
-					</Header>
-					<Main>
-						<ConvenientButton
-							text="음료 주문하기"
-							color="green"
-							oper={goMenu}
-						></ConvenientButton>
-						<ConvenientButton
-							text="선택한 음료S추가/삭제"
-							color="red"
-							oper={goBasket}
-						></ConvenientButton>
-						<ConvenientButton
-							text="선택한 음료S결제하기"
-							color="red"
-							oper={goPayment}
-						></ConvenientButton>
-					</Main>
-					<Footer>
-						<ConvenientButton
-							text="처음화면으로 돌아가기"
-							color="yello"
-							oper={goHome}
-						></ConvenientButton>
-					</Footer>
-				</ConvenientLayout>
-			)}
+					</div>
+					<div>
+						<span>담은 물건 수</span>
+						<span>3</span>
+					</div>
+				</Header>
+				<Main>
+					<ConvenientButton color="green" oper={goMenu}>
+						<span style={{ fontSize: "30px" }}>음료 주문하기</span>
+					</ConvenientButton>
+					<ConvenientButton color="red" oper={goBasket}>
+						<span>선택한 음료</span>
+						<span>추가/삭제</span>
+					</ConvenientButton>
+					<ConvenientButton color="red" oper={goPayment}>
+						<span>선택한 음료</span>
+						<span>결제하기</span>
+					</ConvenientButton>
+				</Main>
+				<Footer>
+					<ConvenientButton color="yello" oper={goHome}>
+						<span>처음화면으로 돌아가기</span>
+					</ConvenientButton>
+				</Footer>
+			</ConvenientLayout>
 		</>
 	);
 }

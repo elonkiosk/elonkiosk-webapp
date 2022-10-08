@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { prependOnceListener } from "process";
 import { useEffect, useState } from "react";
 
 const Button = styled.button<{ btncolor: string }>`
@@ -21,24 +22,30 @@ const Button = styled.button<{ btncolor: string }>`
 	}};
 
 	span {
-		font-size: 24px;
-		font-weight: 600;
-		color: var(--color-white);
+		:first-of-type {
+			font-size: 24px;
+			font-weight: 550;
+			color: var(--color-white);
+		}
+
+		:nth-of-type(2) {
+			font-size: 30px;
+			font-weight: 600;
+			color: var(--color-white);
+		}
 	}
 `;
 
 interface IConvenientButton {
-	text: string;
 	color: string;
 	oper: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	children: React.ReactNode;
 }
 
-function ConvenientButton({ text, color, oper }: IConvenientButton) {
+function ConvenientButton({ color, oper, children }: IConvenientButton) {
 	return (
 		<Button btncolor={color} onClick={oper}>
-			{text.split("S").map((item, key) => (
-				<span key={key}>{item}</span>
-			))}
+			{children}
 		</Button>
 	);
 }
