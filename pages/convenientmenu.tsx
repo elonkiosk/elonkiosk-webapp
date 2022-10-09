@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +13,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MenuItem from "../components/MenuItem";
 import Link from "next/link";
+import ConvenientLayout from "../components/ConvenientLayout";
+import ConvenientTitle from "../components/ConvenientTitle";
+import ConvenientButton from "../components/ConvenientButton";
+import { useRouter } from "next/router";
 
 interface IGets {
 	//error: null;
@@ -164,6 +168,24 @@ const PaymentBascket = styled.a`
 	font-weight: bold;
 `;
 
+const Footer = styled.div`
+	display: grid;
+	place-items: center;
+	background-color: aqua;
+	button {
+		box-sizing: border-box;
+		width: 80%;
+	}
+`;
+
+const Main = styled.div`
+	flex: 1;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	background-color: antiquewhite;
+`;
+
 function convenientmenu() {
 	const [data, setData] = useState<IGets[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -177,6 +199,7 @@ function convenientmenu() {
 	const [totalnumber, setTotalNumber] = useState(0);
 	const [tabnum, setTabNum] = useState(0);
 	const [category, setCategory] = useState(new Set());
+	const router = useRouter();
 
 	useEffect(() => {
 		RestGet();
@@ -434,54 +457,102 @@ function convenientmenu() {
 		return result;
 	};
 
+	const RenderCategory = () => {
+		const result: React.ReactNode[] = [];
+		category.forEach(item => {
+			result.push(
+				<ConvenientButton color="green" oper={goHome}>
+					<span>{item}</span>
+				</ConvenientButton>,
+			);
+		});
+		return result;
+	};
+
+	const goHome = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.push("/");
+		event.preventDefault();
+	};
+
+	const goPrev = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.back();
+		event.preventDefault();
+	};
+
+	const goMenu = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.push("/convenientmenu");
+		event.preventDefault();
+	};
+
+	const goBasket = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.push("/covenientbasket");
+		event.preventDefault();
+	};
+
+	const goPayment = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.push("/convenientpayment");
+		event.preventDefault();
+	};
+
 	return (
 		<>
 			{loading ? (
 				<Loading />
 			) : (
-				<Wrapper>
-					<Tab>
-						<button onClick={TabMinus} id="Tab-arrow">
-							<FontAwesomeIcon icon={faAngleLeft} />
-						</button>
-						<ul>{RenderTap()}</ul>
-						<button onClick={TabPlus} id="Tab-arrow">
-							<FontAwesomeIcon icon={faAngleRight} />
-						</button>
-					</Tab>
-					<Menu>{RenderMenu()}</Menu>
-					<Slide>
-						<button onClick={SlideMinus}>
-							<FontAwesomeIcon icon={faCircleArrowLeft} />
-						</button>
-						<ul>{RenderSlide(pagenum)}</ul>
-						<button onClick={SlidePlus}>
-							<FontAwesomeIcon icon={faCircleArrowRight} />
-						</button>
-					</Slide>
-					<Bottom>
-						<div id="total-result">
-							<div>
-								<span>수량</span>
-								<span>{totalnumber}</span>
-							</div>
-							<div>
-								<span>금액</span>
-								<span>{totalprice}</span>
-							</div>
-						</div>
-						<Link href={`/basket`}>
-							<PaymentBascket>
-								<span>장바구니</span>
-							</PaymentBascket>
-						</Link>
-						<Link href={`/payment`}>
-							<PaymentBascket>
-								<span>결제</span>
-							</PaymentBascket>
-						</Link>
-					</Bottom>
-				</Wrapper>
+				// <Wrapper>
+				// 	<Tab>
+				// 		<button onClick={TabMinus} id="Tab-arrow">
+				// 			<FontAwesomeIcon icon={faAngleLeft} />
+				// 		</button>
+				// 		<ul>{RenderTap()}</ul>
+				// 		<button onClick={TabPlus} id="Tab-arrow">
+				// 			<FontAwesomeIcon icon={faAngleRight} />
+				// 		</button>
+				// 	</Tab>
+				// 	<Menu>{RenderMenu()}</Menu>
+				// 	<Slide>
+				// 		<button onClick={SlideMinus}>
+				// 			<FontAwesomeIcon icon={faCircleArrowLeft} />
+				// 		</button>
+				// 		<ul>{RenderSlide(pagenum)}</ul>
+				// 		<button onClick={SlidePlus}>
+				// 			<FontAwesomeIcon icon={faCircleArrowRight} />
+				// 		</button>
+				// 	</Slide>
+				// 	<Bottom>
+				// 		<div id="total-result">
+				// 			<div>
+				// 				<span>수량</span>
+				// 				<span>{totalnumber}</span>
+				// 			</div>
+				// 			<div>
+				// 				<span>금액</span>
+				// 				<span>{totalprice}</span>
+				// 			</div>
+				// 		</div>
+				// 		<Link href={`/basket`}>
+				// 			<PaymentBascket>
+				// 				<span>장바구니</span>
+				// 			</PaymentBascket>
+				// 		</Link>
+				// 		<Link href={`/payment`}>
+				// 			<PaymentBascket>
+				// 				<span>결제</span>
+				// 			</PaymentBascket>
+				// 		</Link>
+				// 	</Bottom>
+				// </Wrapper>
+				<ConvenientLayout>
+					<ConvenientTitle>
+						<span>어떤 종류의 메뉴를 주문하시겠나요?</span>
+					</ConvenientTitle>
+					<Main>{RenderCategory()}</Main>
+					<Footer>
+						<ConvenientButton color="orange" oper={goPrev}>
+							<span>이전화면으로 돌아가기</span>
+						</ConvenientButton>
+					</Footer>
+				</ConvenientLayout>
 			)}
 		</>
 	);

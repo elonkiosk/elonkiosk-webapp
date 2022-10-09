@@ -9,10 +9,12 @@ const Wrapper = styled.div`
 	background-color: aqua;
 
 	span {
-		font-weight: 500;
+		font-size: 30px;
+		font-weight: 600;
 		word-break: keep-all;
 		white-space: pre-wrap;
 		line-height: 40px;
+		text-align: center;
 	}
 `;
 
