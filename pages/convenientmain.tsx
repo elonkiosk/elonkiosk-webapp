@@ -77,8 +77,8 @@ function convenientmain() {
 		event.preventDefault();
 	};
 
-	const goMenu = (event: React.MouseEvent<HTMLButtonElement>): void => {
-		router.push("/convenientmenu");
+	const goCate = (event: React.MouseEvent<HTMLButtonElement>): void => {
+		router.push("/convenientcategory");
 		event.preventDefault();
 	};
 
@@ -101,12 +101,12 @@ function convenientmain() {
 						<span>3</span>
 					</div>
 					<div>
-						<span>담은 물건 수</span>
-						<span>3</span>
+						<span>총 가격</span>
+						<span>3,000</span>
 					</div>
 				</Header>
 				<Main>
-					<ConvenientButton color="green" oper={goMenu}>
+					<ConvenientButton color="green" oper={goCate}>
 						<span style={{ fontSize: "30px" }}>음료 주문하기</span>
 					</ConvenientButton>
 					<ConvenientButton color="red" oper={goBasket}>

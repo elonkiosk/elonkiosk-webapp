@@ -38,7 +38,7 @@ const Button = styled.button<{ btncolor: string }>`
 
 interface IConvenientButton {
 	color: string;
-	oper: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	oper?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 	children: React.ReactNode;
 }
 
