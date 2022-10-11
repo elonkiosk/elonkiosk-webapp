@@ -79,9 +79,7 @@ const Basket = () => {
 					/>
 				</MainItem>
 				<OrderButton>
-					<a href={`/payment`}>
-						결제하러가기
-					</a>
+					<a href={`/payment`}>결제하러가기</a>
 				</OrderButton>
 			</Wrapper>
 		</Layout>

@@ -135,7 +135,7 @@ export const global = css`
 		text-decoration: none;
 	}
 `;
- 
+
 export const Button = styled.button`
 	background-color: var(--color-pink);
 	border-radius: 9px;

@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 // 	faCircleArrowRight,
 // } from "@fortawesome/free-solid-svg-Modes";
 import MenuItem from "../components/MenuItem";
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const Wrapper = styled.div`

@@ -190,7 +190,7 @@ function Convenientcate() {
 				<ConvenientButton
 					color="green"
 					oper={(event: React.MouseEvent<HTMLButtonElement>) => {
-						navigate(`/convenientmenu/${item}`)
+						navigate(`/convenientmenu/${item}`);
 						event.preventDefault();
 					}}
 					key={index}
