@@ -2,9 +2,14 @@ import styled from "@emotion/styled";
 import { useEffect } from "react";
 
 const Wrapper = styled.div`
-	height: calc(var(--vh, 1vh) * 100);
-	display: flex;
-	flex-direction: column;
+	@media (max-width: 768px) {
+		background-color: #bccef8;
+		width: 100%;
+		height: calc(var(--vh, 1vh) * 100);
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+	}
 `;
 
 interface IConvenientLayout {

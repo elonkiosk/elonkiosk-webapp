@@ -8,10 +8,6 @@ function App() {
 		<div className="App">
 			<Global styles={global} />
 			<AppRouter />
-			<div>
-				<span>asdf</span>
-				<span>dsf</span>
-			</div>
 		</div>
 	);
 }

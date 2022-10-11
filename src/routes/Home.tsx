@@ -10,32 +10,17 @@ import React, { useEffect, useState } from "react";
 // } from "@fortawesome/free-solid-svg-Modes";
 import MenuItem from "../components/MenuItem";
 import { useNavigate } from "react-router-dom";
+import ConvenientLayout from "../components/ConvenientLayout";
+import ConvenientTitle from "../components/ConvenientTitle";
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const Wrapper = styled.div`
-	@media (max-width: 768px) {
-		background-color: var(--color-darkwhite);
-		height: 100vh;
-		width: 100vw;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 20px;
-		box-sizing: border-box;
 
-		button {
-			padding: 20px;
-
-			:first-of-type {
-				height: 30%;
-				margin-bottom: 20px;
-			}
-
-			span {
-				text-align: center;
-			}
-		}
-	}
+const Main = styled.div`
+	padding: 20px;
+	height: 70%;
+	display: grid;
+	gap: 15px;
+	grid-template-rows: 1fr 2fr;
 `;
 
 const Mode = styled.button`
@@ -44,6 +29,7 @@ const Mode = styled.button`
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 	width: 100%;
 	height: 100%;
+	padding: 20px;
 	border: 0;
 	display: flex;
 	flex-direction: column;
@@ -51,12 +37,16 @@ const Mode = styled.button`
 	justify-content: center;
 	box-sizing: border-box;
 
-	a {
-		display: flex;
-		flex-direction: column;
-		text-decoration: none;
+	:first-of-type {
+		grid-row: 1 / 2;
 	}
+
+	:last-of-type {
+		grid-row: 2 / 3;
+	}
+
 	span {
+		text-align: center;
 		color: var(--color-white);
 		:first-of-type {
 			margin-bottom: 10px;
@@ -65,49 +55,41 @@ const Mode = styled.button`
 	}
 `;
 
-const Guide = styled.div`
-	margin-top: 10px;
-	margin-bottom: 40px;
-	span {
-		font-size: 30px;
-		font-weight: 500;
-	}
-`;
-
 const Home = () => {
 	const navigate = useNavigate();
 
 	return (
 		<>
-			<Wrapper>
-				<Guide>
-					<span>둘 중 하나를 선택해주세요</span>
-				</Guide>
-				<Mode
-					onClick={() => {
-						navigate("/normalmode");
-					}}
-				>
-					<a>
+			<ConvenientLayout>
+				<ConvenientTitle>
+					<span>일반 키오스크 화면은 위버튼을</span>
+					<span>
+						노약자, 장애인등 도움이 필요하시면 아래 버튼을 눌러주세요.
+					</span>
+				</ConvenientTitle>
+				<Main>
+					<Mode
+						onClick={() => {
+							navigate("/normalmode");
+						}}
+					>
 						<span style={{ fontSize: "22px" }}>작은 글자</span>
 						<span style={{ fontSize: "14px", opacity: "0.85" }}>
 							일반 주문 화면
 						</span>
-					</a>
-				</Mode>
-				<Mode
-					onClick={() => {
-						navigate("/convenientmode");
-					}}
-				>
-					<a>
+					</Mode>
+					<Mode
+						onClick={() => {
+							navigate("/convenientmode");
+						}}
+					>
 						<span style={{ fontSize: "88px" }}>큰 글자</span>
 						<span style={{ fontSize: "40px", opacity: "0.85" }}>
 							노약자 및 장애인
 						</span>
-					</a>
-				</Mode>
-			</Wrapper>
+					</Mode>
+				</Main>
+			</ConvenientLayout>
 		</>
 	);
 };
