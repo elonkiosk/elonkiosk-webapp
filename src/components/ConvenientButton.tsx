@@ -9,7 +9,7 @@ const Button = styled.button<{ btncolor: string }>`
 	display: grid;
 	place-items: center;
 	background: transparent;
-	margin: 10px;
+	margin: 7px;
 	padding: 22px 5px;
 	cursor: pointer;
 

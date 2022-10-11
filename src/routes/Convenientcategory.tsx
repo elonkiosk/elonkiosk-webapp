@@ -7,6 +7,7 @@ import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientTitle from "../components/ConvenientTitle";
 import ConvenientButton from "../components/ConvenientButton";
 import { useNavigate } from "react-router-dom";
+import ConvenientFooter from "../components/ConvenientFooter";
 
 interface IGets {
 	//error: null;
@@ -217,11 +218,7 @@ function Convenientcate() {
 						<span>어떤 종류의 메뉴를 주문하시겠나요?</span>
 					</ConvenientTitle>
 					<Main>{RenderCategory()}</Main>
-					<Footer>
-						<ConvenientButton color="orange" oper={goPrev}>
-							<span>이전화면으로 돌아가기</span>
-						</ConvenientButton>
-					</Footer>
+					<ConvenientFooter />
 				</ConvenientLayout>
 			)}
 		</>

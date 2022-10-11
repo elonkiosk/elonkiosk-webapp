@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
 import Loading from "../components/Loading";
+import ConvenientFooter from "../components/ConvenientFooter";
 
 const Header = styled.div`
 	background-color: orange;
@@ -118,11 +119,7 @@ function Convenientmain() {
 						<span>결제하기</span>
 					</ConvenientButton>
 				</Main>
-				<Footer>
-					<ConvenientButton color="yello" oper={goHome}>
-						<span>처음화면으로 돌아가기</span>
-					</ConvenientButton>
-				</Footer>
+				<ConvenientFooter />
 			</ConvenientLayout>
 		</>
 	);
