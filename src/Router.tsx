@@ -12,7 +12,7 @@ import Convenientbasket from "./routes/Convenientbasket";
 
 const AppRouter = () => {
 	return (
-		<Router>
+		<Router basename="/store">
 			<Routes>
 				<Route path="/" element={<Home />}></Route>
 				<Route path="/normalmode" element={<Normalmode />}></Route>
