@@ -8,6 +8,7 @@ import Home from "./routes/Home";
 import Normalmode from "./routes/Normalmode";
 import Payment from "./routes/Payment";
 import Convenientmain from "./routes/Convenientmain";
+import Convenientbasket from "./routes/Convenientbasket";
 
 const AppRouter = () => {
 	return (
@@ -27,6 +28,7 @@ const AppRouter = () => {
 					path="/convenientmenu/:menu"
 					element={<Convenientmenu />}
 				></Route>
+				<Route path="/convenientbasket" element={<Convenientbasket />}></Route>
 				<Route
 					path="/convenientpayment"
 					element={<Convenientpayment />}

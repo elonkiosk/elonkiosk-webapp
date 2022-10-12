@@ -1,393 +1,3 @@
-// import styled from "@emotion/styled";
-// import axios from "axios";
-// import AxiosMockAdapter from "axios-mock-adapter";
-// import React, { useEffect, useState } from "react";
-// import Loading from "../components/Loading";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-// 	faAngleRight,
-// 	faAngleLeft,
-// 	faCircle,
-// 	faCircleArrowLeft,
-// 	faCircleArrowRight,
-// } from "@fortawesome/free-solid-svg-icons";
-// import MenuItem from "../components/MenuItem";
-// import Link from "next/link";
-// import ConvenientLayout from "../components/ConvenientLayout";
-// import ConvenientTitle from "../components/ConvenientTitle";
-// import ConvenientButton from "../components/ConvenientButton";
-// import { useRouter } from "next/router";
-
-// const Wrapper = styled.div`
-// 	@media (max-width: 768px) {
-// 		background-color: var(--color-darkwhite);
-// 		height: 100vh;
-// 		display: grid;
-// 		grid-template-rows: 1.5fr 11fr 1fr 2fr;
-// 	}
-// `;
-
-// const Tab = styled.nav`
-// 	display: grid;
-// 	grid-template-columns: 1fr 10fr 1fr;
-// 	padding-top: 12px;
-// 	background-color: var(--color-blue);
-
-// 	ul {
-// 		display: grid;
-// 		gap: 5px;
-// 		grid-template-columns: repeat(5, 1fr);
-// 	}
-
-// 	#Tab-arrow {
-// 		font-size: 20px;
-// 		font-weight: bold;
-// 		background-color: transparent;
-// 		border: 0;
-// 		&:hover {
-// 			cursor: pointer;
-// 		}
-// 		color: #fff;
-// 	}
-// `;
-
-// interface ITabItem {
-// 	index: number;
-// 	tabnum: number;
-// }
-
-// const TabItem = styled.button<ITabItem>`
-// 	width: 100%;
-// 	height: 100%;
-// 	border: none;
-// 	border-top-left-radius: 8px;
-// 	border-top-right-radius: 8px;
-// 	border-bottom: none;
-// 	background-color: ${props =>
-// 		props.index == props.tabnum ? "#eee" : "#2980b9"};
-// 	&:hover {
-// 		cursor: pointer;
-// 	}
-
-// 	span {
-// 		color: ${props => (props.index == props.tabnum ? "#2f3640" : "#fff")};
-// 		font-size: 17px;
-// 		font-weight: bold;
-// 	}
-// `;
-
-// const Menu = styled.main`
-// 	display: grid;
-// 	grid-template-columns: repeat(3, 1fr);
-// 	grid-template-rows: repeat(3, 1fr);
-// 	gap: 10px;
-// 	padding: 20px;
-// 	border: none;
-// `;
-
-// const Slide = styled.div`
-// 	display: flex;
-// 	justify-content: space-between;
-// 	margin-bottom: 20px;
-
-// 	ul {
-// 		display: flex;
-// 		align-items: center;
-// 		gap: 10px;
-// 	}
-
-// 	#ispage {
-// 		color: var(--color-blue);
-// 	}
-
-// 	#isntpage {
-// 		color: #74b9ff;
-// 	}
-
-// 	button {
-// 		background-color: transparent;
-// 		border: 0;
-// 		svg {
-// 			font-size: 30px;
-// 			color: var(--color-blue);
-// 		}
-// 		&:hover {
-// 			cursor: pointer;
-// 		}
-// 	}
-// `;
-
-// const Bottom = styled.div`
-// 	width: 100%;
-// 	display: grid;
-// 	grid-template-columns: 2fr 1fr 1fr;
-
-// 	#total-result {
-// 		display: grid;
-// 		padding-right: 10px;
-// 		grid-template-rows: 1fr 1fr;
-// 		background-color: var(--color-white);
-// 		margin: 5px;
-// 		border-radius: 8px;
-// 		div {
-// 			span {
-// 				:first-of-type {
-// 					font-weight: bold;
-// 				}
-// 			}
-// 			display: flex;
-// 			justify-content: space-between;
-// 			text-align: center;
-// 			align-items: center;
-// 			padding: 8px;
-// 		}
-// 	}
-// `;
-
-// const PaymentBascket = styled.a`
-// 	background-color: var(--color-blue);
-// 	border-radius: 8px;
-// 	border: 0;
-// 	text-align: center;
-// 	display: grid;
-// 	place-items: center;
-// 	margin: 5px;
-// 	font-size: 18px;
-// 	color: #fff;
-// 	font-weight: bold;
-// `;
-
-// function menu() {
-// 	const [data, setData] = useState<IGets[]>([]);
-// 	const [loading, setLoading] = useState(true);
-// 	const [error, setError] = useState<unknown>();
-// 	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
-
-// 	const [leftidx, setLeftIdx] = useState(0);
-// 	const [rightidx, setRightIdx] = useState(4);
-// 	const [pagenum, setPageNum] = useState<number>(0);
-// 	const [totalprice, setTotalPrice] = useState(0);
-// 	const [totalnumber, setTotalNumber] = useState(0);
-// 	const [tabnum, setTabNum] = useState(0);
-// 	const [category, setCategory] = useState<Set<string>>(new Set());
-// 	const router = useRouter();
-
-// 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isButtonClick
-// 	const TabPlus = (event: React.MouseEvent<HTMLButtonElement>) => {
-// 		event.preventDefault();
-// 		//setPivot(prev => prev + 1);
-// 		if (rightidx < category.size - 1) {
-// 			setLeftIdx(prev => prev + 1);
-// 			setRightIdx(prev => prev + 1);
-// 		}
-// 	};
-
-// 	const TabMinus = (event: React.MouseEvent<HTMLButtonElement>) => {
-// 		event.preventDefault();
-// 		if (leftidx > 0) {
-// 			setLeftIdx(prev => prev - 1);
-// 			setRightIdx(prev => prev - 1);
-// 		}
-// 	};
-
-// 	const SlidePlus = (event: React.MouseEvent<HTMLButtonElement>) => {
-// 		event.preventDefault();
-// 		//setPivot(prev => prev + 1);
-// 		if (Math.floor(data.length / 9) > pagenum) {
-// 			setPageNum(prev => prev + 1);
-// 		}
-// 	};
-
-// 	const SlideMinus = (event: React.MouseEvent<HTMLButtonElement>) => {
-// 		event.preventDefault();
-// 		if (pagenum > 0) {
-// 			setPageNum(prev => prev - 1);
-// 		}
-// 	};
-
-// 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isRender
-// 	const RenderTap = () => {
-// 		const result = [];
-// 		console.log(Array.from(category));
-// 		let index = 0;
-// 		for (const item of Array.from(category)) {
-// 			const tempIndex = index;
-// 			result.push(
-// 				<li>
-// 					<TabItem
-// 						onClick={event => {
-// 							event.preventDefault();
-// 							setTabNum(tempIndex);
-// 						}}
-// 						index={tempIndex}
-// 						tabnum={tabnum}
-// 					>
-// 						<span>{typeof item === "string" ? item : ""}</span>
-// 					</TabItem>
-// 				</li>,
-// 			);
-// 			index = index + 1;
-// 		}
-// 		return result;
-// 	};
-
-// 	const RenderMenu = () => {
-// 		const result = [];
-// 		if (pagenum == 0) {
-// 			for (let i = 0; i < 9; i++) {
-// 				result.push(
-// 					<MenuItem
-// 						image={data[i].food_pic}
-// 						title={data[i].food_name}
-// 						price={data[i].price}
-// 						SelectFunc={price => {
-// 							setTotalNumber(prev => prev + 1);
-// 							setTotalPrice(prev => prev + price);
-// 						}}
-// 					/>,
-// 				);
-// 			}
-// 		} else {
-// 			for (let i = pagenum * 9; i < pagenum * 9 + 9; i++) {
-// 				result.push(
-// 					<MenuItem
-// 						image={data[i].food_pic}
-// 						title={data[i].food_name}
-// 						price={data[i].food_number}
-// 						SelectFunc={price => {
-// 							setTotalNumber(prev => prev + 1);
-// 							setTotalPrice(prev => prev + price);
-// 						}}
-// 					/>,
-// 				);
-// 			}
-// 		}
-// 		return result;
-// 	};
-
-// 	const RenderSlide = (pagenum: number) => {
-// 		const result = [];
-// 		const slidenum = Math.floor(data.length / 9);
-// 		for (let i = 0; i < slidenum + 1; i++) {
-// 			if (pagenum == i) {
-// 				result.push(
-// 					<li>
-// 						<span id="ispage">
-// 							<FontAwesomeIcon icon={faCircle} />
-// 						</span>
-// 					</li>,
-// 				);
-// 			} else {
-// 				result.push(
-// 					<li>
-// 						<span id="isntpage">
-// 							<FontAwesomeIcon icon={faCircle} />
-// 						</span>
-// 					</li>,
-// 				);
-// 			}
-// 		}
-// 		return result;
-// 	};
-
-// 	const RenderCategory = () => {
-// 		const result: React.ReactNode[] = [];
-// 		category.forEach(item => {
-// 			result.push(
-// 				<ConvenientButton color="green" oper={goHome}>
-// 					<span>{item}</span>
-// 				</ConvenientButton>,
-// 			);
-// 		});
-// 		return result;
-// 	};
-
-// 	const goHome = (event: React.MouseEvent<HTMLButtonElement>): void => {
-// 		router.push("/");
-// 		event.preventDefault();
-// 	};
-
-// 	const goMenu = (event: React.MouseEvent<HTMLButtonElement>): void => {
-// 		router.push("/convenientmenu");
-// 		event.preventDefault();
-// 	};
-
-// 	const goBasket = (event: React.MouseEvent<HTMLButtonElement>): void => {
-// 		router.push("/covenientbasket");
-// 		event.preventDefault();
-// 	};
-
-// 	const goPayment = (event: React.MouseEvent<HTMLButtonElement>): void => {
-// 		router.push("/convenientpayment");
-// 		event.preventDefault();
-// 	};
-
-// 	return (
-// 		<>
-// 			{loading ? (
-// 				<Loading />
-// 			) : (
-// 				// <Wrapper>
-// 				// 	<Tab>
-// 				// 		<button onClick={TabMinus} id="Tab-arrow">
-// 				// 			<FontAwesomeIcon icon={faAngleLeft} />
-// 				// 		</button>
-// 				// 		<ul>{RenderTap()}</ul>
-// 				// 		<button onClick={TabPlus} id="Tab-arrow">
-// 				// 			<FontAwesomeIcon icon={faAngleRight} />
-// 				// 		</button>
-// 				// 	</Tab>
-// 				// 	<Menu>{RenderMenu()}</Menu>
-// 				// 	<Slide>
-// 				// 		<button onClick={SlideMinus}>
-// 				// 			<FontAwesomeIcon icon={faCircleArrowLeft} />
-// 				// 		</button>
-// 				// 		<ul>{RenderSlide(pagenum)}</ul>
-// 				// 		<button onClick={SlidePlus}>
-// 				// 			<FontAwesomeIcon icon={faCircleArrowRight} />
-// 				// 		</button>
-// 				// 	</Slide>
-// 				// 	<Bottom>
-// 				// 		<div id="total-result">
-// 				// 			<div>
-// 				// 				<span>수량</span>
-// 				// 				<span>{totalnumber}</span>
-// 				// 			</div>
-// 				// 			<div>
-// 				// 				<span>금액</span>
-// 				// 				<span>{totalprice}</span>
-// 				// 			</div>
-// 				// 		</div>
-// 				// 		<Link href={`/basket`}>
-// 				// 			<PaymentBascket>
-// 				// 				<span>장바구니</span>
-// 				// 			</PaymentBascket>
-// 				// 		</Link>
-// 				// 		<Link href={`/payment`}>
-// 				// 			<PaymentBascket>
-// 				// 				<span>결제</span>
-// 				// 			</PaymentBascket>
-// 				// 		</Link>
-// 				// 	</Bottom>
-// 				// </Wrapper>
-// 				<ConvenientLayout>
-// 					<ConvenientTitle>
-// 						<span>어떤 종류의 메뉴를 주문하시겠나요?</span>
-// 					</ConvenientTitle>
-// 					<Main>{RenderCategory()}</Main>
-// 					<Footer>
-// 						<ConvenientButton color="orange" oper={goPrev}>
-// 							<span>이전화면으로 돌아가기</span>
-// 						</ConvenientButton>
-// 					</Footer>
-// 				</ConvenientLayout>
-// 			)}
-// 		</>
-// 	);
-// }
-
-// export default menu;
-
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -397,12 +7,23 @@ import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientTitle from "../components/ConvenientTitle";
 import Loading from "../components/Loading";
 import AxiosMockAdapter from "axios-mock-adapter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	// faAngleRight,
+	// faAngleLeft,
+	// faCircle,
+	faCircleArrowLeft,
+	faCircleArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
+import MenuItem from "../components/MenuItem";
 
 const Main = styled.div`
-	flex: 1;
+	flex: 2;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(2, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	margin: 10px;
+	gap: 12px;
 	background-color: antiquewhite;
 `;
 
@@ -414,6 +35,11 @@ const Footer = styled.div`
 		box-sizing: border-box;
 		width: 80%;
 	}
+`;
+
+const PrevNext = styled.div`
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
 `;
 
 interface IGets {
@@ -429,28 +55,48 @@ interface IGets {
 
 function Convenientmenu() {
 	const [loading, setLoading] = useState(false);
-
 	const [data, setData] = useState<IGets[]>([]);
 	const [error, setError] = useState<unknown>();
 	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
-
 	const [leftidx, setLeftIdx] = useState(0);
 	const [rightidx, setRightIdx] = useState(4);
-	const [pagenum, setPageNum] = useState<number>(0);
-	const [totalprice, setTotalPrice] = useState(0);
-	const [totalnumber, setTotalNumber] = useState(0);
-	const [tabnum, setTabNum] = useState(0);
+	const [tabnum, setTabNum] = useState<number>(0);
 	const [category, setCategory] = useState<Set<string>>(new Set());
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		RestGet();
+	}, []);
+
+	const RenderMenu = (tabnum: number) => {
+		const result = [];
+		for (let i = tabnum * 6; i < tabnum * 6 + 6; i++) {
+			result.push(
+				<MenuItem image="img/buger1.png" title="버거" price={1000}></MenuItem>,
+			);
+		}
+
+		return result;
+	};
+
+	const PrevMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+		if (tabnum > 0) {
+			setTabNum(prev => prev - 1);
+		}
+		event.preventDefault();
+	};
+
+	const NextMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+		if (tabnum < parseInt(String(data.length / 4))) {
+			setTabNum(prev => prev + 1);
+		}
+		event.preventDefault();
+	};
 
 	const goPrev = (event: React.MouseEvent<HTMLButtonElement>): void => {
 		navigate(-1);
 		event.preventDefault();
 	};
-
-	useEffect(() => {
-		RestGet();
-	}, []);
 
 	const RestGet = async () => {
 		try {
@@ -591,54 +237,25 @@ function Convenientmenu() {
 			{loading ? (
 				<Loading />
 			) : (
-				// <Wrapper>
-				// 	<Tab>
-				// 		<button onClick={TabMinus} id="Tab-arrow">
-				// 			<FontAwesomeIcon icon={faAngleLeft} />
-				// 		</button>
-				// 		<ul>{RenderTap()}</ul>
-				// 		<button onClick={TabPlus} id="Tab-arrow">
-				// 			<FontAwesomeIcon icon={faAngleRight} />
-				// 		</button>
-				// 	</Tab>
-				// 	<Menu>{RenderMenu()}</Menu>
-				// 	<Slide>
-				// 		<button onClick={SlideMinus}>
-				// 			<FontAwesomeIcon icon={faCircleArrowLeft} />
-				// 		</button>
-				// 		<ul>{RenderSlide(pagenum)}</ul>
-				// 		<button onClick={SlidePlus}>
-				// 			<FontAwesomeIcon icon={faCircleArrowRight} />
-				// 		</button>
-				// 	</Slide>
-				// 	<Bottom>
-				// 		<div id="total-result">
-				// 			<div>
-				// 				<span>수량</span>
-				// 				<span>{totalnumber}</span>
-				// 			</div>
-				// 			<div>
-				// 				<span>금액</span>
-				// 				<span>{totalprice}</span>
-				// 			</div>
-				// 		</div>
-				// 		<Link href={`/basket`}>
-				// 			<PaymentBascket>
-				// 				<span>장바구니</span>
-				// 			</PaymentBascket>
-				// 		</Link>
-				// 		<Link href={`/payment`}>
-				// 			<PaymentBascket>
-				// 				<span>결제</span>
-				// 			</PaymentBascket>
-				// 		</Link>
-				// 	</Bottom>
-				// </Wrapper>
 				<ConvenientLayout>
 					<ConvenientTitle>
 						<span>메뉴를 선택해주세요</span>
 					</ConvenientTitle>
-					<Main></Main>
+					<Main>{RenderMenu(tabnum)}</Main>
+					<PrevNext>
+						<ConvenientButton color="green" oper={PrevMenu}>
+							<span>
+								<FontAwesomeIcon icon={faCircleArrowLeft} />
+								{"\n\n\n이전메뉴"}
+							</span>
+						</ConvenientButton>
+						<ConvenientButton color="green" oper={NextMenu}>
+							<span>
+								{"다른메뉴\n\n\n"}
+								<FontAwesomeIcon icon={faCircleArrowRight} />
+							</span>
+						</ConvenientButton>
+					</PrevNext>
 					<Footer>
 						<ConvenientButton color="orange" oper={goPrev}>
 							<span>이전화면으로 돌아가기</span>

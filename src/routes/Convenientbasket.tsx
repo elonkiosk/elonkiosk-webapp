@@ -28,7 +28,7 @@ const Main = styled.div`
 	background-color: antiquewhite;
 `;
 
-function Convenientcate() {
+function Convenientbasket() {
 	const [data, setData] = useState<IGets[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [ismenu, setIsMenu] = useState(true);
@@ -174,7 +174,7 @@ function Convenientcate() {
 		return [200, gets];
 	});
 
-	const RenderCategory = () => {
+	const RenderBasket = () => {
 		const result: React.ReactNode[] = [];
 		category.forEach((item, index) => {
 			result.push(
@@ -199,10 +199,7 @@ function Convenientcate() {
 				<Loading />
 			) : (
 				<ConvenientLayout>
-					<ConvenientTitle>
-						<span>어떤 종류의 메뉴를 주문하시겠나요?</span>
-					</ConvenientTitle>
-					<Main>{RenderCategory()}</Main>
+					<Main>{RenderBasket()}</Main>
 					<ConvenientFooter />
 				</ConvenientLayout>
 			)}
@@ -210,4 +207,4 @@ function Convenientcate() {
 	);
 }
 
-export default Convenientcate;
+export default Convenientbasket;

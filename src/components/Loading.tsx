@@ -28,7 +28,7 @@ function Loading() {
 	return (
 		<Background>
 			<LoadingText>잠시만 기다려 주세요</LoadingText>
-			<LoadingGif src={"../static/loading.gif"} alt="로딩이미지" />
+			<LoadingGif src="img/loading.gif" alt="로딩이미지" />
 		</Background>
 	);
 }

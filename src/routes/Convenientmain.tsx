@@ -1,11 +1,7 @@
 import styled from "@emotion/styled";
-import axios from "axios";
-import AxiosMockAdapter from "axios-mock-adapter";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
-import Loading from "../components/Loading";
 import ConvenientFooter from "../components/ConvenientFooter";
 
 const Header = styled.div`
@@ -57,26 +53,8 @@ const Main = styled.div`
 	}
 `;
 
-const Footer = styled.div`
-	display: grid;
-	place-items: center;
-	background-color: aqua;
-	button {
-		box-sizing: border-box;
-		width: 80%;
-	}
-`;
-
 function Convenientmain() {
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<unknown>();
 	const navigate = useNavigate();
-	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
-
-	const goHome = (event: React.MouseEvent<HTMLButtonElement>): void => {
-		navigate("/");
-		event.preventDefault();
-	};
 
 	const goCate = (event: React.MouseEvent<HTMLButtonElement>): void => {
 		navigate("/convenientcategory");
@@ -84,7 +62,7 @@ function Convenientmain() {
 	};
 
 	const goBasket = (event: React.MouseEvent<HTMLButtonElement>): void => {
-		navigate("/covenientbasket");
+		navigate("/convenientbasket");
 		event.preventDefault();
 	};
 

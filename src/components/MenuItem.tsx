@@ -38,17 +38,17 @@ interface IMenuItem {
 	image: string;
 	title: string;
 	price: number;
-	SelectFunc: (price: number) => void;
+	SelectFunc?: (price: number) => void;
 }
 
 function MenuItem({ image, title, price, SelectFunc }: IMenuItem) {
 	return (
 		<Wrapper
 			onClick={() => {
-				SelectFunc(price);
+				//SelectFunc(price);
 			}}
 		>
-			{/* <img src={image} width={70} height={70} quality={100} /> */}
+			<img src={image} alt="메뉴 이미지" />
 			<div>
 				<span>{title}</span>
 				<span>{`${price}원`}</span>
