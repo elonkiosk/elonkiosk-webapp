@@ -347,6 +347,7 @@ const Normalmode = () => {
 			for (let i = 0; i < 9; i++) {
 				result.push(
 					<MenuItem
+						no={menuList[i].food_number}
 						image={menuList[i].food_pic}
 						name={menuList[i].food_name}
 						price={menuList[i].price}
@@ -357,6 +358,7 @@ const Normalmode = () => {
 			for (let i = pagenum * 9; i < pagenum * 9 + 9; i++) {
 				result.push(
 					<MenuItem
+						no={menuList[i].food_number}
 						image={menuList[i].food_pic}
 						name={menuList[i].food_name}
 						price={menuList[i].food_number}

@@ -37,13 +37,7 @@ function Convenientbasket() {
 	const [category, setCategory] = useState<Set<string>>(new Set());
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		sessionStorage.setItem("menu1", "아아");
-		sessionStorage.setItem("menu2", "아아");
-		sessionStorage.setItem("menu3", "아아");
-		sessionStorage.setItem("menu4", "아아");
-		sessionStorage.setItem("menu5", "아아");
-	}, []);
+	// useEffect(() => {}, []);
 
 	const RenderBasket = () => {
 		const result: React.ReactNode[] = [];

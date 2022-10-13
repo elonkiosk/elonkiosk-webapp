@@ -63,7 +63,6 @@ function Convenientmenu() {
 	const [rightidx, setRightIdx] = useState(4);
 	const [tabnum, setTabNum] = useState<number>(0);
 	const [category, setCategory] = useState<Set<string>>(new Set());
-	const [pickedMenu, setPickedMenu] = useRecoilState(menuAtom);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -72,17 +71,33 @@ function Convenientmenu() {
 
 	const RenderMenu = (tabnum: number) => {
 		const result = [];
-		for (let i = tabnum * 4; i < tabnum * 4 + 4; i++) {
-			result.push(
-				<MenuItem
-					no={menu[i].food_number}
-					image={menu[i].food_pic}
-					name={menu[i].food_name}
-					price={1000}
-				></MenuItem>,
-			);
+		if (menu.length > 0) {
+			let remainder = 0;
+			if (parseInt(String((menu.length - 1) / 4)) == tabnum) {
+				console.log("C");
+				if (menu.length % 4 == 0) {
+					remainder = 4;
+					console.log("A");
+				} else {
+					remainder = menu.length % 4;
+					console.log("B");
+				}
+			} else if (parseInt(String((menu.length - 1) / 4)) == 0) {
+				remainder = menu.length;
+			} else {
+				remainder = 4;
+			}
+			for (let i = tabnum * 4; i < tabnum * 4 + remainder; i++) {
+				result.push(
+					<MenuItem
+						no={menu[i].food_number}
+						image={menu[i].food_pic}
+						name={menu[i].food_name}
+						price={menu[i].price}
+					></MenuItem>,
+				);
+			}
 		}
-
 		return result;
 	};
 
@@ -94,7 +109,7 @@ function Convenientmenu() {
 	};
 
 	const NextMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-		if (tabnum < parseInt(String(menu.length / 4))) {
+		if (tabnum < parseInt(String((menu.length - 1) / 4))) {
 			setTabNum(prev => prev + 1);
 		}
 		event.preventDefault();
@@ -109,11 +124,11 @@ function Convenientmenu() {
 		try {
 			setError(null);
 			const response = await axios.get("/gets");
-			//const categorySet = new Set<string>();
+			// const categorySet = new Set<string>();
 			// response.menu.content?.map((item: IGets) => {
 			// 	categorySet.add(item.food_category);
 			// });
-			//setCategory(categorySet);
+			// setCategory(categorySet);
 			setMenu(response.data.content);
 			setLoading(false);
 		} catch (e) {
