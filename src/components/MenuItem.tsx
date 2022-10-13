@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { menuAtom, IpickedMenu } from "../atoms";
+import { useRecoilState } from "recoil";
 
 const Wrapper = styled.button`
 	display: flex;
@@ -35,22 +37,53 @@ const Wrapper = styled.button`
 `;
 
 interface IMenuItem {
+	no: number;
 	image: string;
-	title: string;
+	name: string;
 	price: number;
-	SelectFunc?: (price: number) => void;
 }
 
-function MenuItem({ image, title, price, SelectFunc }: IMenuItem) {
+function MenuItem({ no, image, name, price }: IMenuItem) {
+	const [pickedMenu, setPickedMenu] = useRecoilState<IpickedMenu[]>(menuAtom);
+
+	const AddToBasket = () => {
+		let isAdd = true;
+		for (let i = 0; i < pickedMenu.length; i++) {
+			if (pickedMenu[i].no == no) {
+				setPickedMenu(prev => {
+					const tempObj: IpickedMenu = {
+						no: no,
+						image: image,
+						name: name,
+						price: price,
+						quantity: prev[i].quantity + 1,
+					};
+
+					return [...prev.slice(0, i), tempObj, ...prev.slice(i + 1)];
+				});
+				isAdd = false;
+			}
+		}
+
+		if (isAdd) {
+			const tempObj: IpickedMenu = {
+				no: no,
+				image: image,
+				name: name,
+				price: price,
+				quantity: 1,
+			};
+			setPickedMenu(prev => {
+				return [...prev, tempObj];
+			});
+		}
+	};
+
 	return (
-		<Wrapper
-			onClick={() => {
-				//SelectFunc(price);
-			}}
-		>
+		<Wrapper onClick={AddToBasket}>
 			<img src={image} alt="메뉴 이미지" />
 			<div>
-				<span>{title}</span>
+				<span>{name}</span>
 				<span>{`${price}원`}</span>
 			</div>
 		</Wrapper>

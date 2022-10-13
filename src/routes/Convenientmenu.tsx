@@ -21,7 +21,7 @@ const Main = styled.div`
 	flex: 2;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(3, 1fr);
+	grid-template-rows: repeat(2, 1fr);
 	margin: 10px;
 	gap: 12px;
 	background-color: antiquewhite;
@@ -45,7 +45,8 @@ const PrevNext = styled.div`
 interface IGets {
 	//error: null;
 	food_number: number;
-	food_category: string;
+	detail_category_small: string;
+	enum_category_big: string;
 	store_id: number;
 	food_name: string;
 	price: number;
@@ -55,13 +56,14 @@ interface IGets {
 
 function Convenientmenu() {
 	const [loading, setLoading] = useState(false);
-	const [data, setData] = useState<IGets[]>([]);
+	const [menu, setMenu] = useState<IGets[]>([]);
 	const [error, setError] = useState<unknown>();
 	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
 	const [leftidx, setLeftIdx] = useState(0);
 	const [rightidx, setRightIdx] = useState(4);
 	const [tabnum, setTabNum] = useState<number>(0);
 	const [category, setCategory] = useState<Set<string>>(new Set());
+	const [pickedMenu, setPickedMenu] = useRecoilState(menuAtom);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -70,9 +72,14 @@ function Convenientmenu() {
 
 	const RenderMenu = (tabnum: number) => {
 		const result = [];
-		for (let i = tabnum * 6; i < tabnum * 6 + 6; i++) {
+		for (let i = tabnum * 4; i < tabnum * 4 + 4; i++) {
 			result.push(
-				<MenuItem image="img/buger1.png" title="버거" price={1000}></MenuItem>,
+				<MenuItem
+					no={menu[i].food_number}
+					image={menu[i].food_pic}
+					name={menu[i].food_name}
+					price={1000}
+				></MenuItem>,
 			);
 		}
 
@@ -87,7 +94,7 @@ function Convenientmenu() {
 	};
 
 	const NextMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-		if (tabnum < parseInt(String(data.length / 4))) {
+		if (tabnum < parseInt(String(menu.length / 4))) {
 			setTabNum(prev => prev + 1);
 		}
 		event.preventDefault();
@@ -102,13 +109,12 @@ function Convenientmenu() {
 		try {
 			setError(null);
 			const response = await axios.get("/gets");
-			const categorySet = new Set<string>();
-			response.data.content?.map((item: IGets) => {
-				categorySet.add(item.food_category);
-			});
-			setRightIdx(categorySet.size);
-			setCategory(categorySet);
-			setData(response.data.content);
+			//const categorySet = new Set<string>();
+			// response.menu.content?.map((item: IGets) => {
+			// 	categorySet.add(item.food_category);
+			// });
+			//setCategory(categorySet);
+			setMenu(response.data.content);
 			setLoading(false);
 		} catch (e) {
 			setError(e);
@@ -121,7 +127,8 @@ function Convenientmenu() {
 			content: [
 				{
 					food_number: 1,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "치즈렐라와퍼",
 					price: 3500,
@@ -130,7 +137,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 2,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "치즈렐라치킨버거",
 					price: 4000,
@@ -139,7 +147,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 3,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "몬스터X",
 					price: 3000,
@@ -148,7 +157,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 1,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "통새우X",
 					price: 3500,
@@ -157,7 +167,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 2,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "콰트로치즈X",
 					price: 4000,
@@ -166,7 +177,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 3,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "기네스콰트로치즈와퍼",
 					price: 3000,
@@ -175,7 +187,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 1,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "기네스머쉬룸와퍼",
 					price: 3500,
@@ -184,7 +197,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 2,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "기네스와퍼",
 					price: 4000,
@@ -193,7 +207,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 3,
-					food_category: "버거류",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "몬스터와퍼",
 					price: 3000,
@@ -202,7 +217,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 1,
-					food_category: "사이드",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "아메리카노",
 					price: 3500,
@@ -211,7 +227,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 2,
-					food_category: "음료",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "카페라떼",
 					price: 4000,
@@ -220,7 +237,8 @@ function Convenientmenu() {
 				},
 				{
 					food_number: 3,
-					food_category: "세트",
+					detail_category_small: "커피",
+					enum_category_big: "커피",
 					store_id: 1004,
 					food_name: "녹차",
 					price: 3000,

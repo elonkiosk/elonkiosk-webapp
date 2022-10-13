@@ -10,7 +10,7 @@ const Button = styled.button<{ btncolor: string }>`
 	place-items: center;
 	background: transparent;
 	margin: 7px;
-	padding: 22px 5px;
+	padding: 18px 5px;
 	cursor: pointer;
 
 	background-color: ${props => {

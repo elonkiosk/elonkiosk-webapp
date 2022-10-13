@@ -348,12 +348,8 @@ const Normalmode = () => {
 				result.push(
 					<MenuItem
 						image={menuList[i].food_pic}
-						title={menuList[i].food_name}
+						name={menuList[i].food_name}
 						price={menuList[i].price}
-						SelectFunc={price => {
-							setTotalNumber(prev => prev + 1);
-							setTotalPrice(prev => prev + price);
-						}}
 					/>,
 				);
 			}
@@ -362,12 +358,8 @@ const Normalmode = () => {
 				result.push(
 					<MenuItem
 						image={menuList[i].food_pic}
-						title={menuList[i].food_name}
+						name={menuList[i].food_name}
 						price={menuList[i].food_number}
-						SelectFunc={price => {
-							setTotalNumber(prev => prev + 1);
-							setTotalPrice(prev => prev + price);
-						}}
 					/>,
 				);
 			}
