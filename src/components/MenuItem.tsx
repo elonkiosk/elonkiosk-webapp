@@ -34,6 +34,10 @@ const Wrapper = styled.button`
 	&:hover {
 		cursor: pointer;
 	}
+
+	&:active {
+		opacity: 0.7;
+	}
 `;
 
 interface IMenuItem {
