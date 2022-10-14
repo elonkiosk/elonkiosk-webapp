@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 import ConvenientTitle from "../components/ConvenientTitle";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
+import { useParams, useLocation } from "react-router";
 
 const Menu = styled.div`
 	background-color: red;
