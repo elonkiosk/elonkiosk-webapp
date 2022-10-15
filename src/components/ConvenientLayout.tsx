@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 const Wrapper = styled.div`
 	@media (max-width: 768px) {
-		background-color: #bccef8;
+		background-color: var(--color-backgroundwhite);
 		width: 100%;
 		height: calc(var(--vh, 1vh) * 100);
 		display: flex;

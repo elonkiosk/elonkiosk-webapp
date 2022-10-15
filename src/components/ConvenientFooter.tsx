@@ -7,7 +7,9 @@ const Footer = styled.div`
 	place-items: center;
 
 	button {
-		width: 80%;
+		width: 100% !important;
+		height: 100% !important;
+		border-radius: 0 !important;
 	}
 `;
 

@@ -1,17 +1,18 @@
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import ConvenientTitle from "../components/ConvenientTitle";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
+import ConvenientFooter from "../components/ConvenientFooter";
 
 const Menu = styled.div`
-	background-color: red;
+	flex: 1;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(3, 1fr);
 `;
 
-function ConvenientMode() {
+function Convenientmode() {
 	const navigate = useNavigate();
 
 	const funcIsPickup = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -21,7 +22,7 @@ function ConvenientMode() {
 			sessionStorage.removeItem("ispickup");
 			sessionStorage.setItem("ispickup", "yes");
 		}
-		navigate("/convenientmain");
+		navigate("/convenientcategory");
 		event.preventDefault();
 	};
 
@@ -34,15 +35,12 @@ function ConvenientMode() {
 			sessionStorage.removeItem("ispickup");
 			sessionStorage.setItem("ispickup", "no");
 		}
-		navigate("/convenientmain");
+		navigate("/convenientcategory");
 		event.preventDefault();
 	};
 
 	return (
 		<ConvenientLayout>
-			<ConvenientTitle>
-				<span>{"드시고 가시나요?\n포장해 가시나요?"}</span>
-			</ConvenientTitle>
 			<Menu>
 				<ConvenientButton color="green" oper={funcIsPickup}>
 					<span>포장하기</span>
@@ -51,8 +49,9 @@ function ConvenientMode() {
 					<span>먹고가기</span>
 				</ConvenientButton>
 			</Menu>
+			<ConvenientFooter />
 		</ConvenientLayout>
 	);
 }
 
-export default ConvenientMode;
+export default Convenientmode;

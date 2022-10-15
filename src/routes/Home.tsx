@@ -36,6 +36,7 @@ const Home = () => {
 					<ConvenientButton
 						color="green"
 						oper={() => {
+							sessionStorage.setItem("isConvenient", "yes");
 							navigate("/convenientmode");
 						}}
 					>
@@ -44,6 +45,7 @@ const Home = () => {
 					<ConvenientButton
 						color="red"
 						oper={() => {
+							sessionStorage.setItem("isConvenient", "no");
 							navigate("/normalmode");
 						}}
 					>

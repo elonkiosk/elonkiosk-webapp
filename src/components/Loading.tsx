@@ -18,10 +18,11 @@ const Background = styled.div`
 const LoadingText = styled.div`
 	font: 1rem "Noto Sans KR";
 	text-align: center;
+	font-size: 24px;
 `;
 
 const LoadingGif = styled.img`
-	width: 20%;
+	width: 40%;
 `;
 
 function Loading() {

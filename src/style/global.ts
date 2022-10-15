@@ -146,6 +146,7 @@ export const global = css`
 		--color-blue: #0072b2;
 		--color-red: #d55e00;
 		--color-puple: #cc79a7;
+		--color-backgroundwhite: #eee;
 
 		--primary-color: #2980b9;
 
