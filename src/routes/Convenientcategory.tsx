@@ -47,9 +47,8 @@ function Convenientcate() {
 				result.push(
 					<ConvenientButton
 						color="green"
-						oper={(event: React.MouseEvent<HTMLButtonElement>) => {
+						oper={() => {
 							navigate(`/convenientmenu/${category[i]}`);
-							event.preventDefault();
 						}}
 					>
 						<span>{category[i]}</span>

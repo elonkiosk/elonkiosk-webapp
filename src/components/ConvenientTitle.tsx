@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 	background-color: aqua;
 
 	span {
-		font-size: 30px;
+		font-size: 33px;
 		font-weight: 600;
 		word-break: keep-all;
 		white-space: pre-wrap;

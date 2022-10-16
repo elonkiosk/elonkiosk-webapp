@@ -5,7 +5,7 @@ import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientFooter from "../components/ConvenientFooter";
 
 const Header = styled.div`
-	background-color: orange;
+	background-color: var(--color-pink);
 	padding: 10px 0 10px 0;
 	height: 100px;
 	display: flex;
@@ -22,7 +22,7 @@ const Header = styled.div`
 		}
 
 		:last-child {
-			color: red;
+			color: var(--color-red);
 			margin-right: 15px;
 		}
 	}
@@ -33,7 +33,7 @@ const Main = styled.div`
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-rows: repeat(5, 1fr);
-	background-color: antiquewhite;
+	background-color: var(--color-backgroundwhite);
 
 	button {
 		:nth-of-type(1) {
@@ -56,21 +56,6 @@ const Main = styled.div`
 function Convenientmain() {
 	const navigate = useNavigate();
 
-	const goCate = (event: React.MouseEvent<HTMLButtonElement>): void => {
-		navigate("/convenientcategory");
-		event.preventDefault();
-	};
-
-	const goBasket = (event: React.MouseEvent<HTMLButtonElement>): void => {
-		navigate("/convenientbasket");
-		event.preventDefault();
-	};
-
-	const goPayment = (event: React.MouseEvent<HTMLButtonElement>): void => {
-		navigate("/convenientpayment");
-		event.preventDefault();
-	};
-
 	return (
 		<>
 			<ConvenientLayout>
@@ -85,14 +70,29 @@ function Convenientmain() {
 					</div>
 				</Header>
 				<Main>
-					<ConvenientButton color="green" oper={goCate}>
+					<ConvenientButton
+						color="green"
+						oper={() => {
+							navigate("/convenientcategory");
+						}}
+					>
 						<span style={{ fontSize: "30px" }}>음료 주문하기</span>
 					</ConvenientButton>
-					<ConvenientButton color="red" oper={goBasket}>
+					<ConvenientButton
+						color="red"
+						oper={() => {
+							navigate("/convenientbasket");
+						}}
+					>
 						<span>선택한 음료</span>
 						<span>추가/삭제</span>
 					</ConvenientButton>
-					<ConvenientButton color="red" oper={goPayment}>
+					<ConvenientButton
+						color="red"
+						oper={() => {
+							navigate("/convenientpaymentmethod");
+						}}
+					>
 						<span>선택한 음료</span>
 						<span>결제하기</span>
 					</ConvenientButton>
