@@ -21,6 +21,16 @@ import { useQuery } from "react-query";
 import { getMenu, IMenu } from "../api";
 import ConvenientFooter from "../components/ConvenientFooter";
 
+const Header = styled.div`
+	background-color: var(--color-blue);
+	padding: 18px;
+	span {
+		font-size: 24px;
+		font-weight: 550;
+		color: var(--color-white);
+	}
+`;
+
 const Main = styled.div`
 	flex: 2;
 	display: grid;
@@ -69,6 +79,7 @@ function Convenientmenu() {
 							image={menu[i].pic}
 							name={menu[i].name}
 							price={menu[i].price}
+							isConvenient={true}
 						></MenuItem>,
 					);
 				}
@@ -216,9 +227,9 @@ function Convenientmenu() {
 				<Loading />
 			) : (
 				<ConvenientLayout>
-					<ConvenientTitle>
-						<span>메뉴를 선택해주세요</span>
-					</ConvenientTitle>
+					<Header>
+						<span>{menuname}</span>
+					</Header>
 					<Main>{RenderMenu(tabnum)}</Main>
 					<PrevNext>
 						<ConvenientButton color="green" oper={PrevMenu}>

@@ -22,17 +22,9 @@ const Button = styled.button<{ btncolor: string }>`
 	}};
 
 	span {
-		:first-of-type {
-			font-size: 24px;
-			font-weight: 550;
-			color: var(--color-white);
-		}
-
-		:nth-of-type(2) {
-			font-size: 30px;
-			font-weight: 600;
-			color: var(--color-white);
-		}
+		font-size: 24px;
+		font-weight: 550;
+		color: var(--color-white);
 	}
 `;
 

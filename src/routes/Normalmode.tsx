@@ -351,6 +351,7 @@ const Normalmode = () => {
 						image={menuList[i].food_pic}
 						name={menuList[i].food_name}
 						price={menuList[i].price}
+						isConvenient={false}
 					/>,
 				);
 			}
@@ -362,6 +363,7 @@ const Normalmode = () => {
 						image={menuList[i].food_pic}
 						name={menuList[i].food_name}
 						price={menuList[i].food_number}
+						isConvenient={false}
 					/>,
 				);
 			}

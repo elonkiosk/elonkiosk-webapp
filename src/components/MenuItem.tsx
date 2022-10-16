@@ -3,13 +3,14 @@ import { menuAtom, IpickedMenu } from "../atoms";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router";
 
-const Wrapper = styled.button`
+const Wrapper = styled.button<{ isConvenient: boolean }>`
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+	padding: 10px 5px;
 	width: 100%;
-	// height == width 만들기.. 정사각형으로
-	background-color: #fff;
-	justify-content: space-around;
+	height: 100%;
+	background-color: var(--color-white);
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 	align-items: center;
 	border: 0;
@@ -21,6 +22,8 @@ const Wrapper = styled.button`
 	}
 
 	span {
+		font-size: ${props => (props.isConvenient ? "22px" : "16px")};
+
 		:first-of-type {
 			font-weight: bold;
 			opacity: 0.7;
@@ -46,9 +49,10 @@ interface IMenuItem {
 	image: string;
 	name: string;
 	price: number;
+	isConvenient: boolean;
 }
 
-function MenuItem({ no, image, name, price }: IMenuItem) {
+function MenuItem({ no, image, name, price, isConvenient }: IMenuItem) {
 	const [pickedMenu, setPickedMenu] = useRecoilState<IpickedMenu[]>(menuAtom);
 	const navigate = useNavigate();
 
@@ -88,7 +92,7 @@ function MenuItem({ no, image, name, price }: IMenuItem) {
 	};
 
 	return (
-		<Wrapper onClick={AddToBasket}>
+		<Wrapper onClick={AddToBasket} isConvenient={isConvenient}>
 			<img src={image} alt="메뉴 이미지" />
 			<div>
 				<span>{name}</span>
