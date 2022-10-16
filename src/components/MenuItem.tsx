@@ -56,7 +56,7 @@ function MenuItem({ no, image, name, price, isConvenient }: IMenuItem) {
 	const [pickedMenu, setPickedMenu] = useRecoilState<IpickedMenu[]>(menuAtom);
 	const navigate = useNavigate();
 
-	const AddToBasket = () => {
+	const AddToBasket = (event: React.MouseEvent<HTMLButtonElement>) => {
 		let isAdd = true;
 		for (let i = 0; i < pickedMenu.length; i++) {
 			if (pickedMenu[i].no == no) {
@@ -87,7 +87,7 @@ function MenuItem({ no, image, name, price, isConvenient }: IMenuItem) {
 				return [...prev, tempObj];
 			});
 		}
-
+		event.preventDefault();
 		navigate("/convenientmain");
 	};
 
@@ -96,7 +96,9 @@ function MenuItem({ no, image, name, price, isConvenient }: IMenuItem) {
 			<img src={image} alt="메뉴 이미지" />
 			<div>
 				<span>{name}</span>
-				<span>{`${price}원`}</span>
+				<span>{`${price
+					.toString()
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`}</span>
 			</div>
 		</Wrapper>
 	);

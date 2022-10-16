@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import { prependOnceListener } from "process";
-import { useEffect, useState } from "react";
 
 const Button = styled.button<{ btncolor: string }>`
 	border: 0;

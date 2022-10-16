@@ -3,29 +3,12 @@ import { useNavigate } from "react-router-dom";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientFooter from "../components/ConvenientFooter";
+import BasketSynthesis from "../components/BasketSynthesis";
 
 const Header = styled.div`
-	background-color: var(--color-pink);
-	padding: 10px 0 10px 0;
-	height: 100px;
 	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	justify-content: space-around;
-
-	span {
-		font-size: 26px;
-		font-weight: bold;
-
-		:first-child {
-			margin-right: 10px;
-		}
-
-		:last-child {
-			color: var(--color-red);
-			margin-right: 15px;
-		}
-	}
+	justify-content: flex-end;
+	margin: 5px 0 15px 0;
 `;
 
 const Main = styled.div`
@@ -60,14 +43,7 @@ function Convenientmain() {
 		<>
 			<ConvenientLayout>
 				<Header>
-					<div>
-						<span>담은 물건 수</span>
-						<span>3</span>
-					</div>
-					<div>
-						<span>총 가격</span>
-						<span>3,000</span>
-					</div>
+					<BasketSynthesis />
 				</Header>
 				<Main>
 					<ConvenientButton
@@ -76,7 +52,7 @@ function Convenientmain() {
 							navigate("/convenientcategory");
 						}}
 					>
-						<span style={{ fontSize: "30px" }}>음료 주문하기</span>
+						<span style={{ fontSize: "33px" }}>음료 추가로 주문하기</span>
 					</ConvenientButton>
 					<ConvenientButton
 						color="red"
@@ -85,7 +61,7 @@ function Convenientmain() {
 						}}
 					>
 						<span>선택한 음료</span>
-						<span>추가/삭제</span>
+						<span style={{ fontSize: "33px" }}>추가/삭제</span>
 					</ConvenientButton>
 					<ConvenientButton
 						color="red"
@@ -94,7 +70,7 @@ function Convenientmain() {
 						}}
 					>
 						<span>선택한 음료</span>
-						<span>결제하기</span>
+						<span style={{ fontSize: "33px" }}>결제하기</span>
 					</ConvenientButton>
 				</Main>
 				<ConvenientFooter />

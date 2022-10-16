@@ -54,7 +54,9 @@ function BasketSynthesis() {
 			</Element>
 			<Element>
 				<span>주문 금액</span>
-				<span>{totalprice}</span>
+				<span>
+					{totalprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+				</span>
 			</Element>
 		</Wrapper>
 	);
