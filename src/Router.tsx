@@ -25,7 +25,7 @@ const AppRouter = () => {
 					element={<Convenientcategory />}
 				></Route>
 				<Route
-					path="/convenientmenu/:menu"
+					path="/convenientmenu/:menuname"
 					element={<Convenientmenu />}
 				></Route>
 				<Route path="/convenientbasket" element={<Convenientbasket />}></Route>

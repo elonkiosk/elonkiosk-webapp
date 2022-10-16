@@ -9,20 +9,20 @@ import ConvenientButton from "../components/ConvenientButton";
 import { useNavigate } from "react-router-dom";
 import ConvenientFooter from "../components/ConvenientFooter";
 import { useQuery } from "react-query";
-import { GetCategory } from "../api";
+import { getCategory } from "../api";
 
 const Main = styled.div`
 	flex: 1;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	background-color: antiquewhite;
+	background-color: var(--color-backgroundwhite);
 `;
 
 function Convenientcate() {
 	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
 	const { isLoading, data: category } = useQuery<string[]>(
 		"catagory",
-		GetCategory,
+		getCategory,
 	);
 	const navigate = useNavigate();
 
