@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { menuAtom, IpickedMenu } from "../atoms";
 import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router";
 
 const Wrapper = styled.button`
 	display: flex;
@@ -49,6 +50,7 @@ interface IMenuItem {
 
 function MenuItem({ no, image, name, price }: IMenuItem) {
 	const [pickedMenu, setPickedMenu] = useRecoilState<IpickedMenu[]>(menuAtom);
+	const navigate = useNavigate();
 
 	const AddToBasket = () => {
 		let isAdd = true;
@@ -81,6 +83,8 @@ function MenuItem({ no, image, name, price }: IMenuItem) {
 				return [...prev, tempObj];
 			});
 		}
+
+		navigate("/convenientmain");
 	};
 
 	return (

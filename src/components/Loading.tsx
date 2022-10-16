@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import loading from "../assets/loading.gif";
 
 const Background = styled.div`
 	position: absolute;
@@ -29,7 +29,7 @@ function Loading() {
 	return (
 		<Background>
 			<LoadingText>잠시만 기다려 주세요</LoadingText>
-			<LoadingGif src="img/loading.gif" alt="로딩이미지" />
+			<LoadingGif src={loading} alt="로딩이미지" />
 		</Background>
 	);
 }

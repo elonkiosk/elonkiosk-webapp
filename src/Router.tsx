@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Basket from "./routes/Basket";
 import Convenientcategory from "./routes/Convenientcategory";
 import Convenientmode from "./routes/Convenientmode";
-import Convenientpayment from "./routes/Convenientpaymentmethod";
+import Convenientpayment from "./routes/Convenientpayment";
 import Convenientmenu from "./routes/Convenientmenu";
 import Home from "./routes/Home";
 import Normalmode from "./routes/Normalmode";
