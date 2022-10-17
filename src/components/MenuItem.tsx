@@ -97,7 +97,7 @@ function MenuItem({ no, image, name, price, isConvenient }: IMenuItem) {
 
 	return (
 		<Wrapper onClick={AddToBasket} isConvenient={isConvenient}>
-			{isPick ? <Guide /> : <></>}
+			{isPick ? <Guide category="check" /> : <></>}
 			<img src={image} alt="메뉴 이미지" />
 			<div>
 				<span>{name}</span>
