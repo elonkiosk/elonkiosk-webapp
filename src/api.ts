@@ -44,3 +44,7 @@ export const getMenu = async ({ queryKey }: QueryKey) => {
 		throw e;
 	}
 };
+
+// export const postOrder = async () => {
+
+// };

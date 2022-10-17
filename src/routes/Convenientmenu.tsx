@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 //import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
 import Loading from "../components/Loading";
@@ -19,6 +19,7 @@ import { useParams } from "react-router";
 import { useQuery } from "react-query";
 import { getMenu, IMenu } from "../api";
 import ConvenientFooter from "../components/ConvenientFooter";
+import Guide from "../components/Guide";
 
 const Header = styled.div`
 	background-color: var(--color-blue);
@@ -48,11 +49,16 @@ const PrevNext = styled.div`
 function Convenientmenu() {
 	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
 	const [tabnum, setTabNum] = useState<number>(0);
+	const [isMenuGuide, setIsMenuGuide] = useState(true);
 	const { menuname } = useParams();
 	const { isLoading, data: menu } = useQuery<IMenu[]>(
 		["menu", menuname],
 		getMenu,
 	);
+
+	useEffect(() => {
+		setTimeout(() => setIsMenuGuide(false), 2500);
+	}, []);
 	//const navigate = useNavigate();
 
 	const RenderMenu = (tabnum: number) => {
@@ -226,6 +232,7 @@ function Convenientmenu() {
 				<Loading />
 			) : (
 				<ConvenientLayout>
+					{isMenuGuide ? <Guide category="menu" /> : <></>}
 					<Header>
 						<span>{menuname}</span>
 					</Header>

@@ -19,7 +19,7 @@ const Home = () => {
 	const { storeid } = useParams();
 
 	useEffect(() => {
-		setTimeout(() => setIsIntro(false), 3000);
+		setTimeout(() => setIsIntro(false), 2500);
 		if (storeid !== undefined) {
 			sessionStorage.setItem("storeid", storeid);
 		}

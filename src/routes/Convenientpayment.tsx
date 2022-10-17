@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import { menuAtom } from "../atoms";
@@ -8,6 +8,7 @@ import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientTitle from "../components/ConvenientTitle";
 import cardimg from "../assets/card.png";
 import BasketSynthesis from "../components/BasketSynthesis";
+import Guide from "../components/Guide";
 
 const CardMain = styled.div`
 	border-top: 2mm ridge rgba(231, 52, 97, 0.5);
@@ -66,6 +67,7 @@ const Footer = styled.div`
 `;
 
 function Convenientpayment() {
+	const [isPaymentGuide, setIsPaymentGuide] = useState(false);
 	const { method } = useParams();
 	const basket = useRecoilValue(menuAtom);
 	const navigate = useNavigate();
@@ -73,6 +75,13 @@ function Convenientpayment() {
 	useEffect(() => {
 		console.log(basket);
 	});
+
+	const CompletePayment = () => {
+		setIsPaymentGuide(true);
+		setTimeout(() => {
+			navigate(`/${sessionStorage.getItem("storeid")}`);
+		}, 10000);
+	};
 
 	const RenderPayment = () => {
 		const result = [];
@@ -104,12 +113,13 @@ function Convenientpayment() {
 		} else if (method == "pay") {
 			result.push(
 				<ConvenientLayout>
+					{isPaymentGuide ? <Guide category="payment" /> : <></>}
 					<PayCard>
 						<PayCardImg src={cardimg} alt="card"></PayCardImg>
 					</PayCard>
 					<PayMain>
 						<BasketSynthesis />
-						<ConvenientButton color="green">
+						<ConvenientButton color="green" oper={CompletePayment}>
 							<span>결제하기</span>
 						</ConvenientButton>
 					</PayMain>
