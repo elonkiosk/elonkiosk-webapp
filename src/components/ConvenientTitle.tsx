@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 	flex: 1;
 	display: grid;
 	place-items: center;
-	background-color: aqua;
+	background-color: var(--color-backgroundwhite);
 
 	span {
 		font-size: 33px;

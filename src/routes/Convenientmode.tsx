@@ -4,12 +4,13 @@ import React from "react";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientFooter from "../components/ConvenientFooter";
+import ConvenientTitle from "../components/ConvenientTitle";
 
 const Menu = styled.div`
 	flex: 1;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(3, 1fr);
+	//grid-template-rows: repeat(3, 1fr);
 `;
 
 function Convenientmode() {
@@ -41,6 +42,10 @@ function Convenientmode() {
 
 	return (
 		<ConvenientLayout>
+			<ConvenientTitle>
+				<span>{"포장하시나요?\n드시고 가시나요?"}</span>
+				<span></span>
+			</ConvenientTitle>
 			<Menu>
 				<ConvenientButton color="green" oper={funcIsPickup}>
 					<span>포장하기</span>

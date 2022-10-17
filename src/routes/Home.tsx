@@ -7,7 +7,6 @@ import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientTitle from "../components/ConvenientTitle";
 
 const Menu = styled.div`
-	background-color: red;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	//gap: 5px;
