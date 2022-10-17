@@ -36,7 +36,7 @@ function BasketSynthesis() {
 	const cal = () => {
 		if (basket !== undefined) {
 			basket.forEach(item => {
-				setTotalprice(prev => prev + item.price);
+				setTotalprice(prev => prev + item.price * item.quantity);
 				setTotalnum(prev => prev + item.quantity);
 			});
 		}
