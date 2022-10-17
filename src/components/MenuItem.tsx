@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { menuAtom, IpickedMenu } from "../atoms";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router";
+import Guide from "../components/Guide";
+import { useState } from "react";
 
 const Wrapper = styled.button<{ isConvenient: boolean }>`
 	display: flex;
@@ -54,9 +56,11 @@ interface IMenuItem {
 
 function MenuItem({ no, image, name, price, isConvenient }: IMenuItem) {
 	const [pickedMenu, setPickedMenu] = useRecoilState<IpickedMenu[]>(menuAtom);
+	const [isPick, setIsPick] = useState(false);
 	const navigate = useNavigate();
 
 	const AddToBasket = (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
 		let isAdd = true;
 		for (let i = 0; i < pickedMenu.length; i++) {
 			if (pickedMenu[i].no == no) {
@@ -87,12 +91,13 @@ function MenuItem({ no, image, name, price, isConvenient }: IMenuItem) {
 				return [...prev, tempObj];
 			});
 		}
-		event.preventDefault();
-		navigate("/convenientmain");
+		setIsPick(true);
+		setTimeout(() => navigate("/convenientmain"), 2000);
 	};
 
 	return (
 		<Wrapper onClick={AddToBasket} isConvenient={isConvenient}>
+			{isPick ? <Guide /> : <></>}
 			<img src={image} alt="메뉴 이미지" />
 			<div>
 				<span>{name}</span>

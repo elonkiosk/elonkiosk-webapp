@@ -10,8 +10,8 @@ import cardimg from "../assets/card.png";
 import BasketSynthesis from "../components/BasketSynthesis";
 
 const CardMain = styled.div`
-	border-top: 5mm ridge rgba(236, 53, 99, 0.5);
-	background-color: var(--color-backgroundwhite);
+	border-top: 2mm ridge rgba(231, 52, 97, 0.5);
+	background-color: #ffd6ec;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
