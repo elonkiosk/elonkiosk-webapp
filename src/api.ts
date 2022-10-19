@@ -32,7 +32,9 @@ interface QueryKey {
 	queryKey: string | readonly unknown[];
 }
 
-export const getMenu = async ({ queryKey }: QueryKey) => {
+export const getMenu = async () => {
+	//export const getMenu = async ({ queryKey }: QueryKey) => {
+
 	//const storeid = sessionStorage.getItem("storeid");
 	//const category = queryKey[1];
 
