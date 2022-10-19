@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Layout from "../components/Layout";
+import Layout from "../components/NormalLayout";
 import styled from "@emotion/styled";
 // import {
 // 	Checkbox,
@@ -16,6 +16,7 @@ import {
 	faCreditCard,
 	faMobileScreen,
 } from "@fortawesome/free-solid-svg-icons";
+import NormalLayout from "../components/NormalLayout";
 
 const PaymentWrapper = styled.div`
 	background-color: var(--color-darkwhite);
@@ -139,13 +140,13 @@ const PaymentContent = styled.div`
 	margin: 20px 0;
 `;
 
-const Payment = () => {
+const Normalpayment = () => {
 	//const radio = useRadioState();
 	const [normalpaymenttype, setNormalPaymentType] = useState("");
 	//console.log(radio);
 
 	return (
-		<Layout>
+		<NormalLayout>
 			<PaymentWrapper>
 				<MainItem>
 					<PaymentMethod>
@@ -248,8 +249,8 @@ const Payment = () => {
 					</button>
 				</OrderButton>
 			</PaymentWrapper>
-		</Layout>
+		</NormalLayout>
 	);
 };
 
-export default Payment;
+export default Normalpayment;

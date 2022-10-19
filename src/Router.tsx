@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Basket from "./routes/Basket";
+import NormalBasket from "./routes/Normalbasket";
 import Convenientcategory from "./routes/Convenientcategory";
 import Convenientmode from "./routes/Convenientmode";
 import Convenientpayment from "./routes/Convenientpayment";
 import Convenientmenu from "./routes/Convenientmenu";
 import Home from "./routes/Home";
 import Normalmode from "./routes/Normalmode";
-import Payment from "./routes/Payment";
+import NormalPayment from "./routes/Normalpayment";
 import Convenientmain from "./routes/Convenientmain";
 import Convenientbasket from "./routes/Convenientbasket";
 import Convenientpaymentmethod from "./routes/Convenientpaymentmethod";
@@ -17,8 +17,8 @@ const AppRouter = () => {
 			<Routes>
 				<Route path="/:storeid" element={<Home />}></Route>
 				<Route path="/normalmode" element={<Normalmode />}></Route>
-				<Route path="/basket" element={<Basket />}></Route>
-				<Route path="/payment" element={<Payment />}></Route>
+				<Route path="/normalbasket" element={<NormalBasket />}></Route>
+				<Route path="/normalpayment" element={<NormalPayment />}></Route>
 				<Route path="/convenientmode" element={<Convenientmode />}></Route>
 				<Route path="/convenientmain" element={<Convenientmain />}></Route>
 				<Route

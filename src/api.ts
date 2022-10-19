@@ -13,6 +13,7 @@ export interface IMenu {
 	pic: string;
 	explanation: string;
 }
+// 문제재시 솔류션 기대효과 + 추후 계획
 
 export const getCategory = async () => {
 	//const storeid = sessionStorage.getItem("storeid");
@@ -45,6 +46,23 @@ export const getMenu = async ({ queryKey }: QueryKey) => {
 	}
 };
 
-// export const postOrder = async () => {
+/*
+interface IOrderMenu {
+	number: number;
+}
 
-// };
+export const postOrder = async () => {
+	try {
+		//console.log(menu);
+		const response = await axios.post("/api", {
+			store: Number(sessionStorage.getItem("storeid")),
+			menu: calMenus(),
+			total: calTotalPrice(),
+		});
+
+		return response;
+	} catch (e) {
+		throw e;
+	}
+};
+*/

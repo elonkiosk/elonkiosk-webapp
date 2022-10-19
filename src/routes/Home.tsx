@@ -7,9 +7,10 @@ import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientTitle from "../components/ConvenientTitle";
 import Guide from "../components/Guide";
 
-const Menu = styled.div`
+const Footer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
+	background-color: var(--color-backgroundwhite);
 	//gap: 5px;
 `;
 
@@ -34,7 +35,7 @@ const Home = () => {
 					장애인인가요?
 				</span>
 			</ConvenientTitle>
-			<Menu>
+			<Footer>
 				<ConvenientButton
 					color="green"
 					oper={() => {
@@ -53,7 +54,7 @@ const Home = () => {
 				>
 					<span>아니요</span>
 				</ConvenientButton>
-			</Menu>
+			</Footer>
 		</ConvenientLayout>
 	);
 };

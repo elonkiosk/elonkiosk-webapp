@@ -1,14 +1,26 @@
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-	height: 100vh;
-	// vh가 맞음? %가 맞지 않음?
-	display: flex;
-	flex-direction: column;
+	@media (max-width: 768px) {
+		background-color: var(--color-backgroundwhite);
+		width: 100%;
+		height: calc(var(--vh, 1vh) * 100);
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+		position: relative;
+	}
 `;
+
+function setScreenSize() {
+	const vh = window.innerHeight * 0.01;
+
+	document.documentElement.style.setProperty("--vh", `${vh}px`);
+}
 
 const GoBack = styled.div`
 	padding: 14px 0;
@@ -32,8 +44,17 @@ const GoBack = styled.div`
 	}
 `;
 
-export default function Layout({ children }: any) {
+interface INormalLayout {
+	children: React.ReactNode;
+}
+
+function NormalLayout({ children }: INormalLayout) {
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		setScreenSize();
+		window.addEventListener("resize", () => setScreenSize());
+	}, []);
 
 	return (
 		<Wrapper>
@@ -46,3 +67,5 @@ export default function Layout({ children }: any) {
 		</Wrapper>
 	);
 }
+
+export default NormalLayout;

@@ -9,6 +9,10 @@ import {
 	faCircleArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import MenuItem from "../components/MenuItem";
+import axios from "axios";
+import AxiosMockAdapter from "axios-mock-adapter";
+import { useQuery } from "react-query";
+import { getCategory, getMenu, IMenu } from "../api";
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -154,116 +158,132 @@ const PaymentBascket = styled.a`
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const Normalmode = () => {
-	const menuList = [
-		{
-			food_number: 1,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "치즈렐라와퍼",
-			price: 3500,
-			food_pic: "/static/buger1.png",
-			food_explanation: "시원한 아메리카노",
-		},
-		{
-			food_number: 2,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "치즈렐라치킨버거",
-			price: 4000,
-			food_pic: "/static/buger2.png",
-			food_explanation: "따뜻한 카페라떼",
-		},
-		{
-			food_number: 3,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "몬스터X",
-			price: 3000,
-			food_pic: "/static/buger3.png",
-			food_explanation: "따듯한 녹차",
-		},
-		{
-			food_number: 1,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "통새우X",
-			price: 3500,
-			food_pic: "/static/buger4.png",
-			food_explanation: "시원한 아메리카노",
-		},
-		{
-			food_number: 2,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "콰트로치즈X",
-			price: 4000,
-			food_pic: "/static/buger5.png",
-			food_explanation: "따뜻한 카페라떼",
-		},
-		{
-			food_number: 3,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "기네스콰트로치즈와퍼",
-			price: 3000,
-			food_pic: "/static/buger6.png",
-			food_explanation: "따듯한 녹차",
-		},
-		{
-			food_number: 1,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "기네스머쉬룸와퍼",
-			price: 3500,
-			food_pic: "/static/buger7.png",
-			food_explanation: "시원한 아메리카노",
-		},
-		{
-			food_number: 2,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "기네스와퍼",
-			price: 4000,
-			food_pic: "/static/buger8.png",
-			food_explanation: "따뜻한 카페라떼",
-		},
-		{
-			food_number: 3,
-			food_category: "버거류",
-			store_id: 1004,
-			food_name: "몬스터와퍼",
-			price: 3000,
-			food_pic: "/static/buger9.png",
-			food_explanation: "따듯한 녹차",
-		},
-		{
-			food_number: 1,
-			food_category: "사이드",
-			store_id: 1004,
-			food_name: "아메리카노",
-			price: 3500,
-			food_pic: "이미지 주소",
-			food_explanation: "시원한 아메리카노",
-		},
-		{
-			food_number: 2,
-			food_category: "음료",
-			store_id: 1004,
-			food_name: "카페라떼",
-			price: 4000,
-			food_pic: "이미지 주소",
-			food_explanation: "따뜻한 카페라떼",
-		},
-		{
-			food_number: 3,
-			food_category: "세트",
-			store_id: 1004,
-			food_name: "녹차",
-			price: 3000,
-			food_pic: "이미지 주소",
-			food_explanation: "따듯한 녹차",
-		},
-	];
+	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
+	const { isLoading: isMenuLoading, data: menuList } = useQuery<IMenu[]>(
+		"menu",
+		getMenu,
+	);
+	const { isLoading: isCateLoading, data: category } = useQuery<string[]>(
+		"catagory",
+		getCategory,
+	);
+
+	mock.onGet("/gets/cate").reply(() => {
+		const gets = {
+			error: null,
+			content: [
+				{
+					number: 1,
+					category: "커피",
+					store: 1004,
+					name: "스타벅스",
+					price: 3100,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 2,
+					category: "커피",
+					store: 1004,
+					name: "돌멩커피",
+					price: 3200,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 3,
+					category: "커피",
+					store: 1004,
+					name: "투썸플레이스",
+					price: 3300,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 4,
+					category: "빵",
+					store: 1004,
+					name: "성심당",
+					price: 3400,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 5,
+					category: "빵",
+					store: 1004,
+					name: "파바",
+					price: 3500,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 6,
+					category: "빵",
+					store: 1004,
+					name: "뚜레주르",
+					price: 3600,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 7,
+					category: "음료",
+					store: 1004,
+					name: "콜라",
+					price: 3700,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 8,
+					category: "음료",
+					store: 1004,
+					name: "사이다",
+					price: 3800,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 9,
+					category: "음료",
+					store: 1004,
+					name: "환타",
+					price: 3900,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 10,
+					category: "커피",
+					store: 1004,
+					name: "빽다방",
+					price: 4000,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 11,
+					category: "커피",
+					store: 1004,
+					name: "엔젤인어스",
+					price: 4100,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+				{
+					number: 12,
+					category: "커피",
+					store: 1004,
+					name: "할리스",
+					price: 4200,
+					pic: "/static/buger1.png",
+					explanation: "시원한 아메리카노",
+				},
+			],
+		};
+		return [200, gets];
+	});
 
 	const [leftidx, setLeftIdx] = useState(0);
 	const [rightidx, setRightIdx] = useState(4);
@@ -275,11 +295,13 @@ const Normalmode = () => {
 
 	useEffect(() => {
 		const categorySet = new Set();
-		menuList.forEach(item => {
-			categorySet.add(item.food_category);
-		});
-		setRightIdx(categorySet.size);
-		setCategory(categorySet);
+		if (menuList !== undefined) {
+			menuList.forEach(item => {
+				categorySet.add(item.category);
+			});
+			setRightIdx(categorySet.size);
+			setCategory(categorySet);
+		}
 	}, []);
 
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isButtonClick
@@ -302,9 +324,11 @@ const Normalmode = () => {
 
 	const SlidePlus = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
-		//setPivot(prev => prev + 1);
-		if (Math.floor(menuList.length / 9) > pagenum) {
-			setPageNum(prev => prev + 1);
+		if (menuList !== undefined) {
+			//setPivot(prev => prev + 1);
+			if (Math.floor(menuList.length / 9) > pagenum) {
+				setPageNum(prev => prev + 1);
+			}
 		}
 	};
 
@@ -320,52 +344,56 @@ const Normalmode = () => {
 		const result = [];
 		console.log(Array.from(category));
 		let index = 0;
-		for (const item of Array.from(category)) {
-			const tempIndex = index;
-			result.push(
-				<li>
-					<TabItem
-						onClick={event => {
-							event.preventDefault();
-							setTabNum(tempIndex);
-						}}
-						index={tempIndex}
-						tabnum={tabnum}
-					>
-						<span>{typeof item === "string" ? item : ""}</span>
-					</TabItem>
-				</li>,
-			);
-			index = index + 1;
+		if (menuList !== undefined) {
+			for (const item of Array.from(category)) {
+				const tempIndex = index;
+				result.push(
+					<li>
+						<TabItem
+							onClick={event => {
+								event.preventDefault();
+								setTabNum(tempIndex);
+							}}
+							index={tempIndex}
+							tabnum={tabnum}
+						>
+							<span>{typeof item === "string" ? item : ""}</span>
+						</TabItem>
+					</li>,
+				);
+				index = index + 1;
+			}
 		}
 		return result;
 	};
 
 	const RenderMenu = () => {
 		const result = [];
-		if (pagenum == 0) {
-			for (let i = 0; i < 9; i++) {
-				result.push(
-					<MenuItem
-						no={menuList[i].food_number}
-						image={menuList[i].food_pic}
-						name={menuList[i].food_name}
-						price={menuList[i].price}
-						isConvenient={false}
-					/>,
-				);
-			}
-		} else {
-			for (let i = pagenum * 9; i < pagenum * 9 + 9; i++) {
-				result.push(
-					<MenuItem
-						no={menuList[i].food_number}
-						image={menuList[i].food_pic}
-						name={menuList[i].food_name}
-						price={menuList[i].food_number}
-						isConvenient={false}
-					/>,
-				);
+		if (menuList !== undefined) {
+			if (pagenum == 0) {
+				for (let i = 0; i < 9; i++) {
+					result.push(
+						<MenuItem
+							no={menuList[i].number}
+							image={menuList[i].pic}
+							name={menuList[i].name}
+							price={menuList[i].price}
+							isConvenient={false}
+						/>,
+					);
+				}
+			} else {
+				for (let i = pagenum * 9; i < pagenum * 9 + 9; i++) {
+					result.push(
+						<MenuItem
+							no={menuList[i].number}
+							image={menuList[i].pic}
+							name={menuList[i].name}
+							price={menuList[i].number}
+							isConvenient={false}
+						/>,
+					);
+				}
 			}
 		}
 		return result;
@@ -373,24 +401,26 @@ const Normalmode = () => {
 
 	const RenderSlide = (pagenum: number) => {
 		const result = [];
-		const slidenum = Math.floor(menuList.length / 9);
-		for (let i = 0; i < slidenum + 1; i++) {
-			if (pagenum == i) {
-				result.push(
-					<li>
-						<span id="ispage">
-							<FontAwesomeIcon icon={faCircle} />
-						</span>
-					</li>,
-				);
-			} else {
-				result.push(
-					<li>
-						<span id="isntpage">
-							<FontAwesomeIcon icon={faCircle} />
-						</span>
-					</li>,
-				);
+		if (menuList !== undefined) {
+			const slidenum = Math.floor(menuList.length / 9);
+			for (let i = 0; i < slidenum + 1; i++) {
+				if (pagenum == i) {
+					result.push(
+						<li>
+							<span id="ispage">
+								<FontAwesomeIcon icon={faCircle} />
+							</span>
+						</li>,
+					);
+				} else {
+					result.push(
+						<li>
+							<span id="isntpage">
+								<FontAwesomeIcon icon={faCircle} />
+							</span>
+						</li>,
+					);
+				}
 			}
 		}
 		return result;

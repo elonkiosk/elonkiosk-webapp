@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "../components/NormalLayout";
 import styled from "@emotion/styled";
 import BasketItem from "../components/BasketItem";
 
@@ -53,7 +53,7 @@ const OrderButton = styled.div`
 	}
 `;
 
-const Basket = () => {
+const Normalbasket = () => {
 	return (
 		<Layout>
 			<Wrapper>
@@ -86,4 +86,4 @@ const Basket = () => {
 	);
 };
 
-export default Basket;
+export default Normalbasket;
