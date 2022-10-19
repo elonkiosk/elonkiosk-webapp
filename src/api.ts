@@ -27,10 +27,9 @@ export const getCategory = async () => {
 	}
 };
 
-//type QueryKey = string | readonly unknown[];
-interface QueryKey {
-	queryKey: string | readonly unknown[];
-}
+// interface QueryKey {
+// 	queryKey: string | readonly unknown[];
+// }
 
 export const getMenu = async () => {
 	//export const getMenu = async ({ queryKey }: QueryKey) => {
