@@ -7,6 +7,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import NormalLayout from "../components/NormalLayout";
 import BasketSynthesis from "../components/BasketSynthesis";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { menuAtom } from "../atoms";
+import { useNavigate } from "react-router";
+import Guide from "../components/Guide";
+import Loading from "../components/Loading";
 
 const PaymentWrapper = styled.div`
 	background-color: var(--color-darkwhite);
@@ -86,9 +93,60 @@ const MainHeader = styled.span`
 
 const Normalpayment = () => {
 	const [normalpaymenttype, setNormalPaymentType] = useState("");
+	const basket = useRecoilValue(menuAtom);
+	const [isPaymentGuide, setIsPaymentGuide] = useState(false);
+	const navigate = useNavigate();
+
+	// api post ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+	interface IOrderMenu {
+		number: number;
+	}
+
+	const postOrder = async () => {
+		try {
+			let totalprice = 0;
+			const menus: IOrderMenu[] = [];
+
+			basket.forEach(item => {
+				const tempObj = {
+					number: item.no,
+				};
+				menus.push(tempObj);
+				totalprice = totalprice + item.price;
+			});
+
+			//console.log(menu);
+			const response = await axios.post("https://qr-ufo.com/api/order", {
+				store: Number(sessionStorage.getItem("storeid")),
+				menu: menus,
+				total: totalprice,
+			});
+			console.log(response);
+
+			return response;
+		} catch (e) {
+			throw e;
+		}
+	};
+
+	const { mutate, isLoading, isSuccess } = useMutation(postOrder);
+
+	// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+	const CompletePayment = () => {
+		mutate();
+		if (isSuccess) {
+			setIsPaymentGuide(true);
+			setTimeout(() => {
+				navigate(`/${sessionStorage.getItem("storeid")}`);
+			}, 10000);
+		}
+	};
 
 	return (
 		<NormalLayout>
+			{isPaymentGuide ? <Guide category="payment" /> : <></>}
+			{isLoading ? <Loading /> : <></>}
 			<PaymentWrapper>
 				<MainItem>
 					<PaymentMethod>
@@ -144,9 +202,7 @@ const Normalpayment = () => {
 
 				{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
 				<OrderButton>
-					<button onClick={() => alert("주문이 완료 되었습니다!")}>
-						결제하기
-					</button>
+					<button onClick={CompletePayment}>결제하기</button>
 				</OrderButton>
 			</PaymentWrapper>
 		</NormalLayout>

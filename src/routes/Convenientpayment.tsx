@@ -14,6 +14,7 @@ import axios from "axios";
 //import AxiosMockAdapter from "axios-mock-adapter";
 import { useMutation } from "react-query";
 import Loading from "../components/Loading";
+import ConvenientFooter from "../components/ConvenientFooter";
 
 const CardMain = styled.div`
 	border-top: 2mm ridge rgba(231, 52, 97, 0.5);
@@ -97,14 +98,11 @@ function Convenientpayment() {
 			});
 
 			//console.log(menu);
-			const response = await axios.post(
-				"http://elon-kiosk.saltwalks-devel.cloud/api/order",
-				{
-					store: Number(sessionStorage.getItem("storeid")),
-					menu: menus,
-					total: totalprice,
-				},
-			);
+			const response = await axios.post("https://qr-ufo.com/api/order", {
+				store: Number(sessionStorage.getItem("storeid")),
+				menu: menus,
+				total: totalprice,
+			});
 			console.log(response);
 
 			return response;
@@ -172,7 +170,7 @@ function Convenientpayment() {
 							<span>결제하기</span>
 						</ConvenientButton>
 					</PayMain>
-					<Footer>
+					{/* <Footer>
 						<ConvenientButton
 							color="orange"
 							oper={() => {
@@ -181,7 +179,8 @@ function Convenientpayment() {
 						>
 							<span>처음 화면으로 돌아가기</span>
 						</ConvenientButton>
-					</Footer>
+					</Footer> */}
+					<ConvenientFooter />
 				</ConvenientLayout>,
 			);
 		}

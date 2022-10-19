@@ -38,7 +38,12 @@ function Convenientpaymentmethod() {
 				>
 					<span>등록된 카드</span>
 				</ConvenientButton>
-				<ConvenientButton color="green">
+				<ConvenientButton
+					color="green"
+					oper={() => {
+						navigate("/normalpayment");
+					}}
+				>
 					<span>그 외 결제 방법</span>
 				</ConvenientButton>
 			</Main>

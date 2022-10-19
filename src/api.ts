@@ -16,10 +16,12 @@ export interface IMenu {
 // 문제재시 솔류션 기대효과 + 추후 계획
 
 export const getCategory = async () => {
-	//const storeid = sessionStorage.getItem("storeid");
+	const storeid = sessionStorage.getItem("storeid");
 
 	try {
-		const response = await axios.get("/gets");
+		const response = await axios.get(
+			`https://qr-ufo.com/api/store/${storeid}/category`,
+		);
 		return response.data.content.category;
 	} catch (e) {
 		//return ["오류"];
@@ -27,18 +29,19 @@ export const getCategory = async () => {
 	}
 };
 
-// interface QueryKey {
-// 	queryKey: string | readonly unknown[];
-// }
+interface QueryKey {
+	queryKey: string | readonly unknown[];
+}
 
-export const getMenu = async () => {
-	//export const getMenu = async ({ queryKey }: QueryKey) => {
-
-	//const storeid = sessionStorage.getItem("storeid");
-	//const category = queryKey[1];
+//export const getMenu = async () => {
+export const getMenu = async ({ queryKey }: QueryKey) => {
+	const storeid = sessionStorage.getItem("storeid");
+	const category = queryKey[1];
 
 	try {
-		const response = await axios.get("/gets/cate");
+		const response = await axios.get(
+			`https://qr-ufo.com/api/store/${storeid}/menus/${category}`,
+		);
 		//console.log(response.data.content);
 		return response.data.content;
 	} catch (e) {
