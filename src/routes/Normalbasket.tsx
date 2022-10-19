@@ -11,17 +11,6 @@ const Wrapper = styled.div`
 	width: 100%;
 `;
 
-const MainHeader = styled.span`
-	font-size: 18px;
-	letter-spacing: -1;
-	font-weight: bold;
-`;
-
-const SubHeader = styled.span`
-	font-size: 16px;
-	letter-spacing: -1;
-`;
-
 const MainItem = styled.main`
 	padding: 20px;
 	width: 100%;

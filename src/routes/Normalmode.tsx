@@ -15,14 +15,15 @@ import { useQuery } from "react-query";
 import { getCategory, getMenu, IMenu } from "../api";
 import Loading from "../components/Loading";
 import BasketSynthesis from "../components/BasketSynthesis";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const Wrapper = styled.div`
 	@media (max-width: 768px) {
-		background-color: var(--color-darkwhite);
-		height: 100vh;
+		background-color: var(--color-backgroundwhite);
+		width: 100%;
+		height: calc(var(--vh, 1vh) * 100);
 		display: grid;
 		grid-template-rows: 1.5fr 11fr 1fr 2fr;
 	}
@@ -45,9 +46,6 @@ const Tab = styled.nav`
 		font-weight: bold;
 		background-color: transparent;
 		border: 0;
-		&:hover {
-			cursor: pointer;
-		}
 		color: var(--color-white);
 	}
 `;
@@ -63,16 +61,15 @@ const TabItem = styled.button<ITabItem>`
 	border: none;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
-	border-footer: none;
+	border-bottom: none;
 	background-color: ${props =>
-		props.index == props.tabnum ? "#eee" : "#2980b9"};
-	&:hover {
-		cursor: pointer;
-	}
+		props.index == props.tabnum ? "#eee" : "var(--color-blue)"};
 
 	span {
 		color: ${props =>
-			props.index == props.tabnum ? "#2f3640" : "var(--color-white)"};
+			props.index == props.tabnum
+				? "var(--color-black)"
+				: "var(--color-white)"};
 		font-size: 17px;
 		font-weight: bold;
 	}
@@ -84,7 +81,6 @@ const Menu = styled.main`
 	grid-template-rows: repeat(3, 1fr);
 	gap: 10px;
 	padding: 20px;
-	border: none;
 `;
 
 const Slide = styled.div`
@@ -124,7 +120,7 @@ const Footer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 
-	#total-result {
+	#footer-result {
 		grid-column: 1 / 2;
 		padding-right: 10px;
 		background-color: var(--color-white);
@@ -136,26 +132,26 @@ const Footer = styled.div`
 		grid-column: 2 / 3;
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
+	}
+`;
 
-		button {
-			background-color: var(--color-blue);
-			border-radius: 8px;
-			border: 0;
-			text-align: center;
-			display: grid;
-			place-items: center;
-			margin: 5px;
-			font-size: 18px;
-			color: var(--color-white);
-			font-weight: bold;
-			:first-of-type {
-				grid-column: 1 / 2;
-			}
+const FooterBottom = styled.button`
+	background-color: var(--color-blue);
+	border-radius: 8px;
+	border: 0;
+	text-align: center;
+	display: grid;
+	place-items: center;
+	margin: 5px;
+	font-size: 18px;
+	color: var(--color-white);
+	font-weight: bold;
+	:first-of-type {
+		grid-column: 1 / 2;
+	}
 
-			:last-of-type {
-				grid-column: 2 / 3;
-			}
-		}
+	:last-of-type {
+		grid-column: 2 / 3;
 	}
 `;
 
@@ -165,8 +161,6 @@ const Normalmode = () => {
 	const [leftidx, setLeftIdx] = useState(0);
 	const [rightidx, setRightIdx] = useState(4);
 	const [pagenum, setPageNum] = useState<number>(0);
-	const [totalprice, setTotalPrice] = useState(0);
-	const [totalnumber, setTotalNumber] = useState(0);
 	const [tabnum, setTabNum] = useState(0);
 	const [catename, setCatename] = useState<string>();
 	const navigate = useNavigate();
@@ -309,18 +303,23 @@ const Normalmode = () => {
 		return [200, gets];
 	});
 
+	const setScreenSize = () => {
+		const vh = window.innerHeight * 0.01;
+
+		document.documentElement.style.setProperty("--vh", `${vh}px`);
+	};
+
 	useEffect(() => {
+		setScreenSize();
+		window.addEventListener("resize", () => setScreenSize());
 		if (category !== undefined) {
 			setRightIdx(category.length);
 		}
 	}, []);
 
-	//useEffect(() => {}, [catename]);
-
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isButtonClick
 	const TabPlus = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
-		//setPivot(prev => prev + 1);
 		if (category !== undefined) {
 			if (rightidx < category.length - 1) {
 				setLeftIdx(prev => prev + 1);
@@ -456,7 +455,9 @@ const Normalmode = () => {
 							<FontAwesomeIcon icon={faAngleRight} />
 						</button>
 					</Tab>
+					{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
 					<Menu>{RenderMenu()}</Menu>
+					{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
 					<Slide>
 						<button onClick={SlideMinus}>
 							<FontAwesomeIcon icon={faCircleArrowLeft} />
@@ -466,25 +467,26 @@ const Normalmode = () => {
 							<FontAwesomeIcon icon={faCircleArrowRight} />
 						</button>
 					</Slide>
+					{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
 					<Footer>
-						<div id="total-result">
+						<div id="footer-result">
 							<BasketSynthesis isConvenient={false} />
 						</div>
 						<div id="footer-button">
-							<button
+							<FooterBottom
 								onClick={() => {
 									navigate(`/normalbasket`);
 								}}
 							>
 								<span>장바구니</span>
-							</button>
-							<button
+							</FooterBottom>
+							<FooterBottom
 								onClick={() => {
 									navigate(`/normalpayment`);
 								}}
 							>
 								<span>결제</span>
-							</button>
+							</FooterBottom>
 						</div>
 					</Footer>
 				</Wrapper>

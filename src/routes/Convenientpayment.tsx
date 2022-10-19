@@ -11,7 +11,7 @@ import BasketSynthesis from "../components/BasketSynthesis";
 import Guide from "../components/Guide";
 //import { postOrder } from "../api";
 import axios from "axios";
-import AxiosMockAdapter from "axios-mock-adapter";
+//import AxiosMockAdapter from "axios-mock-adapter";
 import { useMutation } from "react-query";
 import Loading from "../components/Loading";
 
@@ -74,7 +74,7 @@ const Footer = styled.div`
 function Convenientpayment() {
 	const basket = useRecoilValue(menuAtom);
 	const [isPaymentGuide, setIsPaymentGuide] = useState(false);
-	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
+	//const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
 	const { method } = useParams();
 	const navigate = useNavigate();
 
