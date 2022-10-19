@@ -13,7 +13,7 @@ import Convenientpaymentmethod from "./routes/Convenientpaymentmethod";
 
 const AppRouter = () => {
 	return (
-		<Router>
+		<Router basename="/store">
 			<Routes>
 				<Route path="/:storeid" element={<Home />}></Route>
 				<Route path="/normalmode" element={<Normalmode />}></Route>
