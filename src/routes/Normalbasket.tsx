@@ -1,6 +1,9 @@
 import Layout from "../components/NormalLayout";
 import styled from "@emotion/styled";
 import BasketItem from "../components/BasketItem";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { IpickedMenu, menuAtom } from "../atoms";
 
 const Wrapper = styled.div`
 	background-color: #f8f9fa;
@@ -53,31 +56,38 @@ const OrderButton = styled.div`
 	}
 `;
 
+const Empty = styled.span`
+	font-size: 28px;
+	margin-top: 100px;
+`;
+
 const Normalbasket = () => {
+	const [menu, setMenu] = useState<IpickedMenu[]>([]);
+	const pickedMenu = useRecoilValue<IpickedMenu[]>(menuAtom);
+
+	useEffect(() => {
+		setMenu([...pickedMenu]);
+		console.log(pickedMenu);
+	}, []);
+
+	const RenderBasket = () => {
+		const result: React.ReactNode[] = [];
+
+		if (menu.length > 0) {
+			for (let i = 0; i < menu.length; i++) {
+				result.push(<BasketItem targetmenu={pickedMenu[i]}></BasketItem>);
+			}
+		} else {
+			result.push(<Empty>장바구니가 비었습니다</Empty>);
+		}
+
+		return result;
+	};
+
 	return (
 		<Layout>
 			<Wrapper>
-				<MainItem>
-					<MainHeader>장바구니</MainHeader>
-					<BasketItem
-						image="/static/buger1.png"
-						title="치즈렐라와퍼"
-						price={3500}
-						count={1}
-					/>
-					<BasketItem
-						image="/static/buger2.png"
-						title="치즈렐라치킨버거"
-						price={4000}
-						count={1}
-					/>
-					<BasketItem
-						image="/static/buger3.png"
-						title="몬스터X"
-						price={3000}
-						count={1}
-					/>
-				</MainItem>
+				<MainItem>{RenderBasket()}</MainItem>
 				<OrderButton>
 					<a href={`/payment`}>결제하러가기</a>
 				</OrderButton>

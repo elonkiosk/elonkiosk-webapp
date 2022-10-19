@@ -8,13 +8,13 @@ const Wrapper = styled.div`
 	padding: 10px;
 `;
 
-const Element = styled.div`
+const Element = styled.div<IBasketSynthesis>`
 	:first-of-type {
 		margin-bottom: 5px;
 	}
 
 	span {
-		font-size: 26px;
+		font-size: ${props => (props.isConvenient ? "26px" : "20px")};
 		font-weight: 550;
 
 		:first-of-type {
@@ -28,13 +28,18 @@ const Element = styled.div`
 	}
 `;
 
-function BasketSynthesis() {
+interface IBasketSynthesis {
+	isConvenient: boolean;
+}
+
+function BasketSynthesis({ isConvenient }: IBasketSynthesis) {
 	const basket = useRecoilValue(menuAtom);
 	const [totalprice, setTotalprice] = useState(0);
 	const [totalnum, setTotalnum] = useState(0);
 
 	const cal = () => {
 		if (basket !== undefined) {
+			console.log(basket);
 			basket.forEach(item => {
 				setTotalprice(prev => prev + item.price * item.quantity);
 				setTotalnum(prev => prev + item.quantity);
@@ -43,16 +48,18 @@ function BasketSynthesis() {
 	};
 
 	useEffect(() => {
+		setTotalprice(0);
+		setTotalnum(0);
 		cal();
-	}, []);
+	}, [basket]);
 
 	return (
 		<Wrapper>
-			<Element>
+			<Element isConvenient={isConvenient}>
 				<span>주문 수량</span>
 				<span>{totalnum}</span>
 			</Element>
-			<Element>
+			<Element isConvenient={isConvenient}>
 				<span>주문 금액</span>
 				<span>
 					{totalprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}

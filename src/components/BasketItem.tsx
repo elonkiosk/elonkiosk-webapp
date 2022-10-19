@@ -1,7 +1,14 @@
 import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+	faXmark,
+	faSquareMinus,
+	faSquarePlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../style/global";
+import { IpickedMenu, menuAtom } from "../atoms";
+import { useRecoilState } from "recoil";
+import { useEffect } from "react";
 
 const BasketItemWrapper = styled.div`
 	border-bottom: var(--border-color);
@@ -30,6 +37,16 @@ const BasketItemMain = styled.main`
 const BasketItemBottom = styled.div`
 	display: flex;
 	justify-content: flex-end;
+
+	button {
+		//background-color: transparent;
+		border: 0;
+		svg {
+			font-size: 20px;
+			opacity: 0.6;
+			color: black;
+		}
+	}
 `;
 
 const MenuInfo = styled.div`
@@ -52,17 +69,81 @@ const MenuInfo = styled.div`
 `;
 
 interface IBasketItem {
-	image: string;
-	title: string;
-	price: number;
-	count: number;
+	targetmenu: IpickedMenu;
 }
 
-function BasketItem({ image, title, price, count }: IBasketItem) {
+function BasketItem({ targetmenu }: IBasketItem) {
+	const [pickedMenu, setPickedMenu] = useRecoilState<IpickedMenu[]>(menuAtom);
+
+	useEffect(() => {
+		console.log(pickedMenu);
+	}, [pickedMenu]);
+
+	const menuDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+		for (let i = 0; i < pickedMenu.length; i++) {
+			if (pickedMenu[i].no == targetmenu.no) {
+				setPickedMenu(prev => {
+					return [...prev.slice(0, i), ...prev.slice(i + 1)];
+				});
+				break;
+			}
+		}
+
+		event.preventDefault();
+	};
+
+	const menuPlus = (event: React.MouseEvent<HTMLButtonElement>) => {
+		for (let i = 0; i < pickedMenu.length; i++) {
+			if (pickedMenu[i].no == targetmenu.no) {
+				setPickedMenu(prev => {
+					const tempObj: IpickedMenu = {
+						no: pickedMenu[i].no,
+						image: pickedMenu[i].image,
+						name: pickedMenu[i].name,
+						price: pickedMenu[i].price,
+						quantity: prev[i].quantity + 1,
+					};
+
+					return [...prev.slice(0, i), tempObj, ...prev.slice(i + 1)];
+				});
+				break;
+			}
+		}
+
+		event.preventDefault();
+	};
+
+	const menuMinus = (event: React.MouseEvent<HTMLButtonElement>) => {
+		for (let i = 0; i < pickedMenu.length; i++) {
+			if (pickedMenu[i].no == targetmenu.no) {
+				if (pickedMenu[i].quantity == 1) {
+					setPickedMenu(prev => {
+						return [...prev.slice(0, i), ...prev.slice(i + 1)];
+					});
+				} else {
+					setPickedMenu(prev => {
+						const tempObj: IpickedMenu = {
+							no: pickedMenu[i].no,
+							image: pickedMenu[i].image,
+							name: pickedMenu[i].name,
+							price: pickedMenu[i].price,
+							quantity: prev[i].quantity - 1,
+						};
+
+						return [...prev.slice(0, i), tempObj, ...prev.slice(i + 1)];
+					});
+				}
+				break;
+			}
+		}
+
+		event.preventDefault();
+	};
+
 	return (
 		<BasketItemWrapper>
 			<BasketItemTop>
-				<button>
+				<button onClick={menuDelete}>
 					<FontAwesomeIcon icon={faXmark} />
 				</button>
 			</BasketItemTop>
@@ -70,20 +151,26 @@ function BasketItem({ image, title, price, count }: IBasketItem) {
 				<MenuInfo>
 					{/* <img src={image} width={80} height={80} objectFit="contain" /> */}
 					<div>
-						<span>{title}</span>
+						<span>
+							{targetmenu?.name === undefined ? "삭제완료" : targetmenu.name}
+						</span>
 						<span>기본옵션</span>
 					</div>
 				</MenuInfo>
-				<span>{`${price}원`}</span>
+				<span>{`${
+					targetmenu?.price === undefined ? "" : targetmenu.price
+				}원`}</span>
 			</BasketItemMain>
 			<BasketItemBottom>
 				<div>
-					<Button>
-						<FontAwesomeIcon icon={faMinus} />
+					<Button onClick={menuMinus}>
+						<FontAwesomeIcon icon={faSquareMinus} />
 					</Button>
-					<span style={{ margin: "0 10px" }}>{count}</span>
-					<Button>
-						<FontAwesomeIcon icon={faPlus} />
+					<span style={{ margin: "0 10px" }}>
+						{targetmenu?.quantity === undefined ? "" : targetmenu.quantity}
+					</span>
+					<Button onClick={menuPlus}>
+						<FontAwesomeIcon icon={faSquarePlus} />
 					</Button>
 				</div>
 			</BasketItemBottom>

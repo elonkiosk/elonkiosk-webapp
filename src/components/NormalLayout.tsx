@@ -24,7 +24,7 @@ function setScreenSize() {
 
 const GoBack = styled.div`
 	padding: 14px 0;
-	background-color: var(--color-pink);
+	background-color: var(--color-blue);
 
 	button {
 		padding: 0;

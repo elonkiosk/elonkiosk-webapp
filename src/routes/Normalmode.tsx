@@ -13,6 +13,9 @@ import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import { useQuery } from "react-query";
 import { getCategory, getMenu, IMenu } from "../api";
+import Loading from "../components/Loading";
+import BasketSynthesis from "../components/BasketSynthesis";
+import { Navigate, useNavigate } from "react-router";
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -45,7 +48,7 @@ const Tab = styled.nav`
 		&:hover {
 			cursor: pointer;
 		}
-		color: #fff;
+		color: var(--color-white);
 	}
 `;
 
@@ -60,7 +63,7 @@ const TabItem = styled.button<ITabItem>`
 	border: none;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
-	border-bottom: none;
+	border-footer: none;
 	background-color: ${props =>
 		props.index == props.tabnum ? "#eee" : "#2980b9"};
 	&:hover {
@@ -68,7 +71,8 @@ const TabItem = styled.button<ITabItem>`
 	}
 
 	span {
-		color: ${props => (props.index == props.tabnum ? "#2f3640" : "#fff")};
+		color: ${props =>
+			props.index == props.tabnum ? "#2f3640" : "var(--color-white)"};
 		font-size: 17px;
 		font-weight: bold;
 	}
@@ -115,54 +119,64 @@ const Slide = styled.div`
 	}
 `;
 
-const Bottom = styled.div`
+const Footer = styled.div`
 	width: 100%;
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr;
+	grid-template-columns: repeat(2, 1fr);
 
 	#total-result {
-		display: grid;
+		grid-column: 1 / 2;
 		padding-right: 10px;
-		grid-template-rows: 1fr 1fr;
 		background-color: var(--color-white);
 		margin: 5px;
 		border-radius: 8px;
-		div {
-			span {
-				:first-of-type {
-					font-weight: bold;
-				}
-			}
-			display: flex;
-			justify-content: space-between;
+	}
+
+	#footer-button {
+		grid-column: 2 / 3;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+
+		button {
+			background-color: var(--color-blue);
+			border-radius: 8px;
+			border: 0;
 			text-align: center;
-			align-items: center;
-			padding: 8px;
+			display: grid;
+			place-items: center;
+			margin: 5px;
+			font-size: 18px;
+			color: var(--color-white);
+			font-weight: bold;
+			:first-of-type {
+				grid-column: 1 / 2;
+			}
+
+			:last-of-type {
+				grid-column: 2 / 3;
+			}
 		}
 	}
-`;
-
-const PaymentBascket = styled.a`
-	background-color: var(--color-blue);
-	border-radius: 8px;
-	border: 0;
-	text-align: center;
-	display: grid;
-	place-items: center;
-	margin: 5px;
-	font-size: 18px;
-	color: #fff;
-	font-weight: bold;
 `;
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 const Normalmode = () => {
+	const [leftidx, setLeftIdx] = useState(0);
+	const [rightidx, setRightIdx] = useState(4);
+	const [pagenum, setPageNum] = useState<number>(0);
+	const [totalprice, setTotalPrice] = useState(0);
+	const [totalnumber, setTotalNumber] = useState(0);
+	const [tabnum, setTabNum] = useState(0);
+	const [catename, setCatename] = useState<string>();
+	const navigate = useNavigate();
+
 	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
 	const { isLoading: isMenuLoading, data: menuList } = useQuery<IMenu[]>(
-		"menu",
+		["menu", catename],
 		getMenu,
 	);
+
 	const { isLoading: isCateLoading, data: category } = useQuery<string[]>(
 		"catagory",
 		getCategory,
@@ -285,32 +299,33 @@ const Normalmode = () => {
 		return [200, gets];
 	});
 
-	const [leftidx, setLeftIdx] = useState(0);
-	const [rightidx, setRightIdx] = useState(4);
-	const [pagenum, setPageNum] = useState<number>(0);
-	const [totalprice, setTotalPrice] = useState(0);
-	const [totalnumber, setTotalNumber] = useState(0);
-	const [tabnum, setTabNum] = useState(0);
-	const [category, setCategory] = useState(new Set());
+	mock.onGet("/gets").reply(() => {
+		const gets = {
+			error: null,
+			content: {
+				category: ["커피", "음료", "빵"],
+			},
+		};
+		return [200, gets];
+	});
 
 	useEffect(() => {
-		const categorySet = new Set();
-		if (menuList !== undefined) {
-			menuList.forEach(item => {
-				categorySet.add(item.category);
-			});
-			setRightIdx(categorySet.size);
-			setCategory(categorySet);
+		if (category !== undefined) {
+			setRightIdx(category.length);
 		}
 	}, []);
+
+	//useEffect(() => {}, [catename]);
 
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isButtonClick
 	const TabPlus = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		//setPivot(prev => prev + 1);
-		if (rightidx < category.size - 1) {
-			setLeftIdx(prev => prev + 1);
-			setRightIdx(prev => prev + 1);
+		if (category !== undefined) {
+			if (rightidx < category.length - 1) {
+				setLeftIdx(prev => prev + 1);
+				setRightIdx(prev => prev + 1);
+			}
 		}
 	};
 
@@ -319,6 +334,13 @@ const Normalmode = () => {
 		if (leftidx > 0) {
 			setLeftIdx(prev => prev - 1);
 			setRightIdx(prev => prev - 1);
+		}
+	};
+
+	const SlideMinus = (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		if (pagenum > 0) {
+			setPageNum(prev => prev - 1);
 		}
 	};
 
@@ -332,20 +354,12 @@ const Normalmode = () => {
 		}
 	};
 
-	const SlideMinus = (event: React.MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault();
-		if (pagenum > 0) {
-			setPageNum(prev => prev - 1);
-		}
-	};
-
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isRender
 	const RenderTap = () => {
 		const result = [];
-		console.log(Array.from(category));
 		let index = 0;
-		if (menuList !== undefined) {
-			for (const item of Array.from(category)) {
+		if (category !== undefined) {
+			for (const item of category) {
 				const tempIndex = index;
 				result.push(
 					<li>
@@ -353,6 +367,7 @@ const Normalmode = () => {
 							onClick={event => {
 								event.preventDefault();
 								setTabNum(tempIndex);
+								setCatename(item);
 							}}
 							index={tempIndex}
 							tabnum={tabnum}
@@ -369,9 +384,21 @@ const Normalmode = () => {
 
 	const RenderMenu = () => {
 		const result = [];
-		if (menuList !== undefined) {
-			if (pagenum == 0) {
-				for (let i = 0; i < 9; i++) {
+		if (menuList !== undefined && menuList !== null) {
+			if (menuList.length > 0) {
+				let remainder = 0;
+				if (parseInt(String((menuList.length - 1) / 9)) == pagenum) {
+					if (menuList.length % 9 == 0) {
+						remainder = 9;
+					} else {
+						remainder = menuList.length % 9;
+					}
+				} else if (parseInt(String((menuList.length - 1) / 9)) == 0) {
+					remainder = menuList.length;
+				} else {
+					remainder = 9;
+				}
+				for (let i = pagenum * 9; i < pagenum * 9 + remainder; i++) {
 					result.push(
 						<MenuItem
 							no={menuList[i].number}
@@ -379,19 +406,7 @@ const Normalmode = () => {
 							name={menuList[i].name}
 							price={menuList[i].price}
 							isConvenient={false}
-						/>,
-					);
-				}
-			} else {
-				for (let i = pagenum * 9; i < pagenum * 9 + 9; i++) {
-					result.push(
-						<MenuItem
-							no={menuList[i].number}
-							image={menuList[i].pic}
-							name={menuList[i].name}
-							price={menuList[i].number}
-							isConvenient={false}
-						/>,
+						></MenuItem>,
 					);
 				}
 			}
@@ -429,49 +444,54 @@ const Normalmode = () => {
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 	return (
-		<Wrapper>
-			<Tab>
-				<button onClick={TabMinus} id="Tab-arrow">
-					<FontAwesomeIcon icon={faAngleLeft} />
-				</button>
-				<ul>{RenderTap()}</ul>
-				<button onClick={TabPlus} id="Tab-arrow">
-					<FontAwesomeIcon icon={faAngleRight} />
-				</button>
-			</Tab>
-			<Menu>{RenderMenu()}</Menu>
-			<Slide>
-				<button onClick={SlideMinus}>
-					<FontAwesomeIcon icon={faCircleArrowLeft} />
-				</button>
-				<ul>{RenderSlide(pagenum)}</ul>
-				<button onClick={SlidePlus}>
-					<FontAwesomeIcon icon={faCircleArrowRight} />
-				</button>
-			</Slide>
-			<Bottom>
-				<div id="total-result">
-					<div>
-						<span>수량</span>
-						<span>{totalnumber}</span>
-					</div>
-					<div>
-						<span>금액</span>
-						<span>{totalprice}</span>
-					</div>
-				</div>
-				<a href={`/basket`}>
-					<PaymentBascket>
-						<span>장바구니</span>
-					</PaymentBascket>
-				</a>
-				<a href={`/payment`}>
-					<PaymentBascket>
-						<span>결제</span>
-					</PaymentBascket>
-				</a>
-			</Bottom>
-		</Wrapper>
+		<>
+			{!isMenuLoading && !isCateLoading ? (
+				<Wrapper>
+					<Tab>
+						<button onClick={TabMinus} id="Tab-arrow">
+							<FontAwesomeIcon icon={faAngleLeft} />
+						</button>
+						<ul>{RenderTap()}</ul>
+						<button onClick={TabPlus} id="Tab-arrow">
+							<FontAwesomeIcon icon={faAngleRight} />
+						</button>
+					</Tab>
+					<Menu>{RenderMenu()}</Menu>
+					<Slide>
+						<button onClick={SlideMinus}>
+							<FontAwesomeIcon icon={faCircleArrowLeft} />
+						</button>
+						<ul>{RenderSlide(pagenum)}</ul>
+						<button onClick={SlidePlus}>
+							<FontAwesomeIcon icon={faCircleArrowRight} />
+						</button>
+					</Slide>
+					<Footer>
+						<div id="total-result">
+							<BasketSynthesis isConvenient={false} />
+						</div>
+						<div id="footer-button">
+							<button
+								onClick={() => {
+									navigate(`/normalbasket`);
+								}}
+							>
+								<span>장바구니</span>
+							</button>
+							<button
+								onClick={() => {
+									navigate(`/normalpayment`);
+								}}
+							>
+								<span>결제</span>
+							</button>
+						</div>
+					</Footer>
+				</Wrapper>
+			) : (
+				<Loading />
+			)}
+		</>
 	);
 };
 

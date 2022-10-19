@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import Layout from "../components/NormalLayout";
 import styled from "@emotion/styled";
-// import {
-// 	Checkbox,
-// 	useCheckboxState,
-// 	Radio,
-// 	useRadioState,
-// } from "pretty-checkbox-react";
-//import "@djthoms/pretty-checkbox";
-import { useCallback, useEffect, useRef } from "react";
-//import elonpay from "../static/elonpay.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faCreditCard,
@@ -151,26 +140,12 @@ const Normalpayment = () => {
 				<MainItem>
 					<PaymentMethod>
 						<MainHeader>결제수단</MainHeader>
-						{/* <div>
-							<PaymentMethodRadio
-								name="ElonPay"
-								value="ElonPay"
-								bigger
-								{...radio}
-							>
-								일론 페이
-							</PaymentMethodRadio>
+						<div>
+							<input type="radio">일론 페이</input>
 							{radio.state === "ElonPay" ? (
 								<ElonPay>
 									<ElonPayCard>
-										<ElonPayCardMain>
-											<Image
-												src={elonpay}
-												width="100%"
-												height="100%"
-												objectFit="contain"
-											/>
-										</ElonPayCardMain>
+										<ElonPayCardMain></ElonPayCardMain>
 									</ElonPayCard>
 								</ElonPay>
 							) : null}
@@ -226,7 +201,7 @@ const Normalpayment = () => {
 									</NormalPayItem>
 								</NormalPay>
 							) : null}
-						</div> */}
+						</div>
 					</PaymentMethod>
 				</MainItem>
 				{/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}

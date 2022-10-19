@@ -43,7 +43,7 @@ function Convenientmain() {
 		<>
 			<ConvenientLayout>
 				<Header>
-					<BasketSynthesis />
+					<BasketSynthesis isConvenient={true} />
 				</Header>
 				<Main>
 					<ConvenientButton

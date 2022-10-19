@@ -167,7 +167,7 @@ function Convenientpayment() {
 						<PayCardImg src={cardimg} alt="card"></PayCardImg>
 					</PayCard>
 					<PayMain>
-						<BasketSynthesis />
+						<BasketSynthesis isConvenient={true} />
 						<ConvenientButton color="green" oper={CompletePayment}>
 							<span>결제하기</span>
 						</ConvenientButton>

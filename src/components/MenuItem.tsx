@@ -92,7 +92,11 @@ function MenuItem({ no, image, name, price, isConvenient }: IMenuItem) {
 			});
 		}
 		setIsPick(true);
-		setTimeout(() => navigate("/convenientmain"), 2000);
+		if (isConvenient) {
+			setTimeout(() => navigate("/convenientmain"), 2000);
+		} else {
+			setTimeout(() => setIsPick(false), 500);
+		}
 	};
 
 	return (
