@@ -23,8 +23,8 @@ function Convenientmode() {
 			sessionStorage.removeItem("ispickup");
 			sessionStorage.setItem("ispickup", "yes");
 		}
-		navigate("/convenientcategory");
 		event.preventDefault();
+		navigate("/convenientcategory");
 	};
 
 	const funcIsNotPickup = (
@@ -36,8 +36,8 @@ function Convenientmode() {
 			sessionStorage.removeItem("ispickup");
 			sessionStorage.setItem("ispickup", "no");
 		}
-		navigate("/convenientcategory");
 		event.preventDefault();
+		navigate("/convenientcategory");
 	};
 
 	return (

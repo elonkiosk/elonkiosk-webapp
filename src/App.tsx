@@ -4,7 +4,7 @@ import { Global } from "@emotion/react";
 import { global } from "./style/global";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
-//import { ReactQueryDevtools } from "react-query/devtools";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 function App() {
 	const queryClient = new QueryClient();
@@ -15,7 +15,7 @@ function App() {
 				<QueryClientProvider client={queryClient}>
 					<Global styles={global} />
 					<AppRouter />
-					{/* <ReactQueryDevtools initialIsOpen={true} /> */}
+					<ReactQueryDevtools initialIsOpen={true} />
 				</QueryClientProvider>
 			</RecoilRoot>
 		</div>

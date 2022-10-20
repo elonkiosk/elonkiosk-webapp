@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
-import axios from "axios";
-import AxiosMockAdapter from "axios-mock-adapter";
-import React, { useEffect } from "react";
+import React from "react";
 import Loading from "../components/Loading";
 import ConvenientLayout from "../components/ConvenientLayout";
 import ConvenientTitle from "../components/ConvenientTitle";
@@ -18,27 +16,12 @@ const Main = styled.div`
 	background-color: var(--color-backgroundwhite);
 `;
 
-function Convenientcate() {
-	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
+function Convenientcategory() {
 	const { isLoading, data: category } = useQuery<string[]>(
 		"catagory",
 		getCategory,
 	);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		console.log(category);
-	}, []);
-
-	mock.onGet("/gets").reply(() => {
-		const gets = {
-			error: null,
-			content: {
-				category: ["커피", "음료", "빵"],
-			},
-		};
-		return [200, gets];
-	});
 
 	const RenderCategory = () => {
 		const result: React.ReactNode[] = [];
@@ -76,4 +59,4 @@ function Convenientcate() {
 	);
 }
 
-export default Convenientcate;
+export default Convenientcategory;

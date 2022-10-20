@@ -1,11 +1,9 @@
 import styled from "@emotion/styled";
-import axios from "axios";
 //import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ConvenientButton from "../components/ConvenientButton";
 import ConvenientLayout from "../components/ConvenientLayout";
 import Loading from "../components/Loading";
-import AxiosMockAdapter from "axios-mock-adapter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	// faAngleRight,
@@ -47,7 +45,6 @@ const PrevNext = styled.div`
 `;
 
 function Convenientmenu() {
-	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
 	const [tabnum, setTabNum] = useState<number>(0);
 	const [isMenuGuide, setIsMenuGuide] = useState(true);
 	const { menuname } = useParams();
@@ -108,123 +105,6 @@ function Convenientmenu() {
 		}
 		event.preventDefault();
 	};
-
-	mock.onGet("/gets/cate").reply(() => {
-		const gets = {
-			error: null,
-			content: [
-				{
-					number: 1,
-					category: "커피",
-					store: 1004,
-					name: "스타벅스",
-					price: 3100,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 2,
-					category: "커피",
-					store: 1004,
-					name: "돌멩커피",
-					price: 3200,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 3,
-					category: "커피",
-					store: 1004,
-					name: "투썸플레이스",
-					price: 3300,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 4,
-					category: "빵",
-					store: 1004,
-					name: "성심당",
-					price: 3400,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 5,
-					category: "빵",
-					store: 1004,
-					name: "파바",
-					price: 3500,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 6,
-					category: "빵",
-					store: 1004,
-					name: "뚜레주르",
-					price: 3600,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 7,
-					category: "음료",
-					store: 1004,
-					name: "콜라",
-					price: 3700,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 8,
-					category: "음료",
-					store: 1004,
-					name: "사이다",
-					price: 3800,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 9,
-					category: "음료",
-					store: 1004,
-					name: "환타",
-					price: 3900,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 10,
-					category: "커피",
-					store: 1004,
-					name: "빽다방",
-					price: 4000,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 11,
-					category: "커피",
-					store: 1004,
-					name: "엔젤인어스",
-					price: 4100,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 12,
-					category: "커피",
-					store: 1004,
-					name: "할리스",
-					price: 4200,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-			],
-		};
-		return [200, gets];
-	});
 
 	return (
 		<>

@@ -9,8 +9,6 @@ import {
 	faCircleArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import MenuItem from "../components/MenuItem";
-import axios from "axios";
-import AxiosMockAdapter from "axios-mock-adapter";
 import { useQuery } from "react-query";
 import { getCategory, getMenu, IMenu } from "../api";
 import Loading from "../components/Loading";
@@ -165,143 +163,15 @@ const Normalmode = () => {
 	const [catename, setCatename] = useState<string>();
 	const navigate = useNavigate();
 
-	const mock = new AxiosMockAdapter(axios, { delayResponse: 500 });
-	const { isLoading: isMenuLoading, data: menuList } = useQuery<IMenu[]>(
-		["menu", catename],
-		getMenu,
-	);
-
 	const { isLoading: isCateLoading, data: category } = useQuery<string[]>(
 		"catagory",
 		getCategory,
 	);
 
-	mock.onGet("/gets/cate").reply(() => {
-		const gets = {
-			error: null,
-			content: [
-				{
-					number: 1,
-					category: "커피",
-					store: 1004,
-					name: "스타벅스",
-					price: 3100,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 2,
-					category: "커피",
-					store: 1004,
-					name: "돌멩커피",
-					price: 3200,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 3,
-					category: "커피",
-					store: 1004,
-					name: "투썸플레이스",
-					price: 3300,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 4,
-					category: "빵",
-					store: 1004,
-					name: "성심당",
-					price: 3400,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 5,
-					category: "빵",
-					store: 1004,
-					name: "파바",
-					price: 3500,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 6,
-					category: "빵",
-					store: 1004,
-					name: "뚜레주르",
-					price: 3600,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 7,
-					category: "음료",
-					store: 1004,
-					name: "콜라",
-					price: 3700,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 8,
-					category: "음료",
-					store: 1004,
-					name: "사이다",
-					price: 3800,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 9,
-					category: "음료",
-					store: 1004,
-					name: "환타",
-					price: 3900,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 10,
-					category: "커피",
-					store: 1004,
-					name: "빽다방",
-					price: 4000,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 11,
-					category: "커피",
-					store: 1004,
-					name: "엔젤인어스",
-					price: 4100,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-				{
-					number: 12,
-					category: "커피",
-					store: 1004,
-					name: "할리스",
-					price: 4200,
-					pic: "/static/buger1.png",
-					explanation: "시원한 아메리카노",
-				},
-			],
-		};
-		return [200, gets];
-	});
-
-	mock.onGet("/gets").reply(() => {
-		const gets = {
-			error: null,
-			content: {
-				category: ["커피", "음료", "빵"],
-			},
-		};
-		return [200, gets];
-	});
+	const { isLoading: isMenuLoading, data: menuList } = useQuery<IMenu[]>(
+		["menu", catename],
+		getMenu,
+	);
 
 	const setScreenSize = () => {
 		const vh = window.innerHeight * 0.01;
@@ -314,8 +184,15 @@ const Normalmode = () => {
 		window.addEventListener("resize", () => setScreenSize());
 		if (category !== undefined) {
 			setRightIdx(category.length);
+			setCatename(category[0]);
 		}
 	}, []);
+
+	useEffect(() => {
+		if (category !== undefined) {
+			setCatename(category[0]);
+		}
+	}, [category]);
 
 	//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ isButtonClick
 	const TabPlus = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -383,7 +260,7 @@ const Normalmode = () => {
 
 	const RenderMenu = () => {
 		const result = [];
-		if (menuList !== undefined && menuList !== null) {
+		if (menuList !== undefined) {
 			if (menuList.length > 0) {
 				let remainder = 0;
 				if (parseInt(String((menuList.length - 1) / 9)) == pagenum) {

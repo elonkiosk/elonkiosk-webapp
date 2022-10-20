@@ -18,6 +18,11 @@ const Wrapper = styled.button<{ isConvenient: boolean }>`
 	border: 0;
 	border-radius: 8px;
 
+	img {
+		width: 50%;
+		object-fit: scale-down;
+	}
+
 	div {
 		display: flex;
 		flex-direction: column;

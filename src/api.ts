@@ -13,7 +13,6 @@ export interface IMenu {
 	pic: string;
 	explanation: string;
 }
-// 문제재시 솔류션 기대효과 + 추후 계획
 
 export const getCategory = async () => {
 	const storeid = sessionStorage.getItem("storeid");
@@ -22,9 +21,9 @@ export const getCategory = async () => {
 		const response = await axios.get(
 			`https://qr-ufo.com/api/store/${storeid}/category`,
 		);
-		return response.data.content.category;
+
+		return response.data.category;
 	} catch (e) {
-		//return ["오류"];
 		throw e;
 	}
 };
@@ -42,10 +41,8 @@ export const getMenu = async ({ queryKey }: QueryKey) => {
 		const response = await axios.get(
 			`https://qr-ufo.com/api/store/${storeid}/menus/${category}`,
 		);
-		//console.log(response.data.content);
-		return response.data.content;
+		return response.data;
 	} catch (e) {
-		//return [];
 		throw e;
 	}
 };

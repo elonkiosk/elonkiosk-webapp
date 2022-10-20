@@ -4,6 +4,7 @@ import BasketItem from "../components/BasketItem";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { IpickedMenu, menuAtom } from "../atoms";
+import { useNavigate } from "react-router";
 
 const Wrapper = styled.div`
 	background-color: #f8f9fa;
@@ -31,7 +32,7 @@ const OrderButton = styled.div`
 	height: 8%;
 	border-top: var(--border-color);
 
-	a {
+	button {
 		text-decoration: none;
 		font-weight: bold;
 		color: #fff;
@@ -53,6 +54,7 @@ const Empty = styled.span`
 const Normalbasket = () => {
 	const [menu, setMenu] = useState<IpickedMenu[]>([]);
 	const pickedMenu = useRecoilValue<IpickedMenu[]>(menuAtom);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setMenu([...pickedMenu]);
@@ -78,7 +80,13 @@ const Normalbasket = () => {
 			<Wrapper>
 				<MainItem>{RenderBasket()}</MainItem>
 				<OrderButton>
-					<a href={`/payment`}>결제하러가기</a>
+					<button
+						onClick={() => {
+							navigate("/normalpayment");
+						}}
+					>
+						결제하러가기
+					</button>
 				</OrderButton>
 			</Wrapper>
 		</Layout>

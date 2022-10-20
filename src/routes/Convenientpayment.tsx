@@ -100,7 +100,7 @@ function Convenientpayment() {
 			//console.log(menu);
 			const response = await axios.post("https://qr-ufo.com/api/order", {
 				store: Number(sessionStorage.getItem("storeid")),
-				menu: menus,
+				menus: menus,
 				total: totalprice,
 			});
 			console.log(response);
@@ -113,6 +113,15 @@ function Convenientpayment() {
 
 	const { mutate, isLoading, isSuccess } = useMutation(postOrder);
 
+	useEffect(() => {
+		if (isSuccess) {
+			setIsPaymentGuide(true);
+			setTimeout(() => {
+				navigate(`/${sessionStorage.getItem("storeid")}`);
+			}, 5000);
+		}
+	}, [isSuccess]);
+
 	// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 	useEffect(() => {
@@ -121,12 +130,6 @@ function Convenientpayment() {
 
 	const CompletePayment = () => {
 		mutate();
-		if (isSuccess) {
-			setIsPaymentGuide(true);
-			setTimeout(() => {
-				navigate(`/${sessionStorage.getItem("storeid")}`);
-			}, 10000);
-		}
 	};
 
 	const RenderPayment = () => {

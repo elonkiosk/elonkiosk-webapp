@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -118,7 +118,7 @@ const Normalpayment = () => {
 			//console.log(menu);
 			const response = await axios.post("https://qr-ufo.com/api/order", {
 				store: Number(sessionStorage.getItem("storeid")),
-				menu: menus,
+				menus: menus,
 				total: totalprice,
 			});
 			console.log(response);
@@ -131,16 +131,19 @@ const Normalpayment = () => {
 
 	const { mutate, isLoading, isSuccess } = useMutation(postOrder);
 
-	// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-	const CompletePayment = () => {
-		mutate();
+	useEffect(() => {
 		if (isSuccess) {
 			setIsPaymentGuide(true);
 			setTimeout(() => {
 				navigate(`/${sessionStorage.getItem("storeid")}`);
-			}, 10000);
+			}, 5000);
 		}
+	}, [isSuccess]);
+
+	// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+	const CompletePayment = () => {
+		mutate();
 	};
 
 	return (
